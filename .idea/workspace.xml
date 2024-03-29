@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/users.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/users.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/adminHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/adminHome.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +165,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711609626570</updated>
       <workItem from="1711609627733" duration="18000" />
-      <workItem from="1711719774581" duration="8285000" />
+      <workItem from="1711719774581" duration="11718000" />
     </task>
     <servers />
   </component>
