@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76ad01c6-d93a-446e-90c0-a71d34fc4591" name="Changes" comment="created login screen&#10;&#10;if entered username is in the usersystem it goes to the second screen">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/userHomeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/adminHome.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/userHome.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/users.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/users.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +164,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711609626570</updated>
       <workItem from="1711609627733" duration="18000" />
-      <workItem from="1711719774581" duration="6513000" />
+      <workItem from="1711719774581" duration="8285000" />
     </task>
     <servers />
   </component>

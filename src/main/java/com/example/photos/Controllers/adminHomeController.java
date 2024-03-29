@@ -65,16 +65,24 @@ public class adminHomeController {
         String username = usernameInput.getText();
         if(username != null) {
             if (!username.isEmpty()) {
-                createdMessage.setVisible(true);
-                PauseTransition message = new PauseTransition();
-                message.setDuration(Duration.seconds(2));
-                message.setOnFinished(e -> {
+                if(s.check(username)){
                     createdMessage.setVisible(false);
-                    createUser.setVisible(true);
-                });
-                message.play();
-                s.addUser(new User(username));
-                usernameInput.setText(null);
+                    errorMessage.setText("Duplicate Username");
+                    errorMessage.setVisible(true);
+                    returnDupe();
+                }
+                else {
+                    createdMessage.setVisible(true);
+                    PauseTransition message = new PauseTransition();
+                    message.setDuration(Duration.seconds(2));
+                    message.setOnFinished(e -> {
+                        createdMessage.setVisible(false);
+                        createUser.setVisible(true);
+                    });
+                    message.play();
+                    s.addUser(new User(username));
+                    usernameInput.setText(null);
+                }
             } else {
                 createdMessage.setVisible(false);
                 errorMessage.setVisible(true);
@@ -89,12 +97,25 @@ public class adminHomeController {
     }
 
     private void returnError() {
+        createUser1.setVisible(true);
+        usernameInput.setVisible(true);
+        usernameInput.setText(null);
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
         message.setOnFinished(e -> {
             errorMessage.setVisible(false);
-            createUser1.setVisible(true);
-            usernameInput.setVisible(true);
+        });
+        message.play();
+    }
+
+    private void returnDupe() {
+        createUser1.setVisible(true);
+        usernameInput.setVisible(true);
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            errorMessage.setVisible(false);
+            errorMessage.setText("Please enter a valid username");
             usernameInput.setText(null);
         });
         message.play();
