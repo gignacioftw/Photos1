@@ -21,6 +21,7 @@ public class logInController {
     public UserSystem s;
     public Button loginButton;
     public Label errorMessage;
+    public Button helpButton;
     @FXML
     TextField nameTextField;
 
@@ -50,5 +51,13 @@ public class logInController {
             errorMessage.setText("Please enter a valid username");
         }
     }
+    public void help(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/logInhelp.fxml"));
+        root = loader.load();
 
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

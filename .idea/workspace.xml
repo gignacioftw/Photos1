@@ -5,24 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76ad01c6-d93a-446e-90c0-a71d34fc4591" name="Changes" comment="created login screen&#10;&#10;if entered username is in the usersystem it goes to the second screen">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/users.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/PhotosController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/homeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/PhotoSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Photo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/home.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInHelpController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/logInhelp.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,21 +168,22 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created login screen&#10;&#10;if entered username is in the usersystem it goes to the second screen" />
     <option name="LAST_COMMIT_MESSAGE" value="created login screen&#10;&#10;if entered username is in the usersystem it goes to the second screen" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java</url>
-          <line>20</line>
-          <properties field="s" class="com.example.photos.Controllers.logInController" />
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="com.example.photos.Controllers.logInController" memberName="loginButton" />
