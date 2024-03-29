@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76ad01c6-d93a-446e-90c0-a71d34fc4591" name="Changes" comment="created login screen&#10;&#10;if entered username is in the usersystem it goes to the second screen">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInHelpController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/logInhelp.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/userHomeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/adminHome.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/userHome.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/users.dat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/logIn.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,16 +25,30 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gignacioftw&quot;
+  }
+}</component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="8722ee95-e7b3-47dd-b3ea-ae57eba9729b" />
+        <option name="url" value="https://github.com/gignacioftw/Photos1.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
@@ -56,8 +75,11 @@
     "Maven.Photos [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "extract.method.default.visibility": "private",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -66,18 +88,6 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="QodanaHighlightedReportService">
-    <option name="localRunNotPublishedPersistedInfo">
-      <LocalReportPersistedInfo>
-        <option name="path" value="C:\Users\Gigna\AppData\Local\Temp\qodana_output\qodana.sarif.json" />
-        <option name="reportGuid" value="3b8cdcd0-6309-4581-952f-62f895d71021" />
-        <option name="reportName" value="Photos/qodana/2024-03-28" />
-      </LocalReportPersistedInfo>
-    </option>
-  </component>
-  <component name="QodanaIsSelectedPersistenceService">
-    <option name="selectedOrLoading" value="true" />
-  </component>
   <component name="QodanaReportsService">
     <option name="descriptions">
       <ReportDescription localRun="true" path="C:\Users\Gigna\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="3b8cdcd0-6309-4581-952f-62f895d71021" reportId="Photos/qodana/2024-03-28" />
@@ -92,7 +102,7 @@
       <recent name="com.example.photos" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.example.photos.PhotoApp">
+  <component name="RunManager" selected="Application.UserSystem">
     <configuration name="Photo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.photos.Photo" />
       <module name="Photos" />
@@ -140,8 +150,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.com.example.photos.PhotoApp" />
         <item itemvalue="Application.UserSystem" />
+        <item itemvalue="Application.com.example.photos.PhotoApp" />
         <item itemvalue="Application.Photo" />
       </list>
     </recent_temporary>
@@ -162,6 +172,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711609626570</updated>
       <workItem from="1711609627733" duration="18000" />
+      <workItem from="1711719774581" duration="6513000" />
     </task>
     <servers />
   </component>

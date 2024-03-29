@@ -3,7 +3,7 @@ package com.example.photos.Model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    String username;
+    protected String username;
 
     public User(){
 

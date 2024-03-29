@@ -11,6 +11,6 @@
       <Button fx:id="loginButton" layoutX="275.0" layoutY="246.0" mnemonicParsing="false" onAction="#login" text="Log In" />
       <Label layoutX="227.0" layoutY="172.0" text="Please enter your username" />
       <Label fx:id="errorMessage" alignment="CENTER" layoutX="183.0" layoutY="225.0" prefHeight="17.0" prefWidth="234.0" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" />
-      <Button fx:id="helpButton" layoutX="545.0" layoutY="14.0" mnemonicParsing="false" onAction="#help" style="-fx-background-color: lightblue; -fx-border-color: grey;" styleClass="button-3" text="Help" />
+      <Button fx:id="helpButton" layoutX="543.0" layoutY="14.0" mnemonicParsing="false" onAction="#help" style="-fx-background-color: lightblue; -fx-border-color: grey;" styleClass="button-3" text="Help" />
    </children>
 </AnchorPane>
