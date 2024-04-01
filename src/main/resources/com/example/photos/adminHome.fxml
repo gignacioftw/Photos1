@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -11,14 +13,19 @@
    <Button fx:id="listUser" layoutX="55.0" layoutY="188.0" mnemonicParsing="false" onAction="#list" text="List Users" />
    <Button fx:id="createUser" layoutX="261.0" layoutY="188.0" mnemonicParsing="false" onAction="#create" text="Create User" />
    <Button fx:id="deleteUser" layoutX="463.0" layoutY="188.0" mnemonicParsing="false" onAction="#delete" text="Delete User" />
-   <TextField fx:id="usernameInput" layoutX="226.0" layoutY="188.0" promptText="username" />
-   <Button fx:id="createUser1" layoutX="261.0" layoutY="223.0" mnemonicParsing="false" onAction="#create1" text="Create User" />
-   <Label fx:id="createdMessage" alignment="CENTER" layoutX="182.0" layoutY="192.0" prefHeight="17.0" prefWidth="236.0" textAlignment="CENTER" textFill="RED" />
+   <TextField fx:id="usernameInput" layoutX="226.0" layoutY="188.0" prefHeight="25.0" prefWidth="177.0" promptText="username" />
+   <Button fx:id="createUser1" layoutX="237.0" layoutY="223.0" mnemonicParsing="false" onAction="#create1" text="Create User" />
+   <Label fx:id="createdMessage" alignment="CENTER" layoutX="183.0" layoutY="192.0" prefHeight="17.0" prefWidth="236.0" textAlignment="CENTER" textFill="RED" />
    <Label fx:id="errorMessage" alignment="CENTER" layoutX="178.0" layoutY="171.0" prefHeight="17.0" prefWidth="245.0" textAlignment="CENTER" textFill="RED" />
-   <Button fx:id="deleteUser1" layoutX="463.0" layoutY="223.0" mnemonicParsing="false" onAction="#delete1" text="Delete User" />
+   <Button fx:id="deleteUser1" layoutX="430.0" layoutY="223.0" mnemonicParsing="false" onAction="#delete1" text="Delete User" />
    <ChoiceBox fx:id="userList" layoutX="427.0" layoutY="188.0" prefWidth="150.0" />
-   <Label fx:id="errorMessage1" alignment="CENTER" layoutX="414.0" layoutY="171.0" prefHeight="17.0" prefWidth="177.0" text="Please pick valid user" textAlignment="CENTER" textFill="RED" />
+   <Label fx:id="errorMessage1" alignment="CENTER" layoutX="413.0" layoutY="171.0" prefHeight="17.0" prefWidth="177.0" text="Please pick valid user" textAlignment="CENTER" textFill="RED" />
    <Label fx:id="verifyLabel" alignment="CENTER" layoutX="414.0" layoutY="181.0" prefHeight="39.0" prefWidth="177.0" text="Are you sure you want to &#10;delete: " textAlignment="CENTER" textFill="RED" />
    <Button fx:id="deleteYes" layoutX="463.0" layoutY="223.0" mnemonicParsing="false" onAction="#deleteYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
    <Button fx:id="deleteNo" layoutX="507.0" layoutY="223.0" mnemonicParsing="false" onAction="#deleteNo" prefHeight="25.0" prefWidth="34.0" text="No" />
+   <Accordion layoutX="74.0" layoutY="50.0" />
+   <Button fx:id="createCancel" layoutX="339.0" layoutY="223.0" mnemonicParsing="false" onAction="#createCancel" text="Cancel" />
+   <Button fx:id="deleteCancel" layoutX="522.0" layoutY="223.0" mnemonicParsing="false" onAction="#deleteCancel" text="Cancel" />
+   <ListView fx:id="listOfUsers" layoutX="14.0" layoutY="101.0" prefHeight="200.0" prefWidth="200.0" />
+   <Button fx:id="close" layoutX="88.0" layoutY="312.0" mnemonicParsing="false" onAction="#closeList" text="Close" />
 </AnchorPane>
