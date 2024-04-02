@@ -12,8 +12,4 @@ public class Admin extends User implements Serializable {
         this.username = username;
     }
 
-    public void createUser(){
-
-    }
-
 }

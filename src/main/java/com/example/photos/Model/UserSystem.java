@@ -13,7 +13,9 @@ public class UserSystem implements Serializable {
     public UserSystem(){
         users = new HashMap<>();
         Admin a = new Admin();
+        User stock = new User("stock");
         users.put(a.getUsername(), a);
+        users.put(stock.getUsername(), stock);
     }
 
     public void addUser(User u){
@@ -38,7 +40,6 @@ public class UserSystem implements Serializable {
         }
     }
     public Object getUser(String username){
-
         return users.get(username);
     }
     public static void writeApp(UserSystem sys) throws IOException {
@@ -53,11 +54,16 @@ public class UserSystem implements Serializable {
     public static Boolean hasData() throws IOException{
         return new File(storeDir, storeFile).exists();
     }
+
     public static void main(String[]args) throws IOException, ClassNotFoundException {
         UserSystem s = readApp();
-        //s.addUser(new User("blud"));
-        String[] usernames = s.returnUsers();
-        s.printUsernames(usernames);
+        s.printUsernames(s.returnUsers());
+        User u = (User)s.getUser("monkey");
+        u.addAlbum(new Album("poop"));
+        //u.createAlbum("monkey dinesh");
+        String[] albumNames = u.getAlbumNames();
+        s.printUsernames(albumNames);
+        writeApp(s);
     }
 }
 

@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76ad01c6-d93a-446e-90c0-a71d34fc4591" name="Changes" comment="created login screen&#10;&#10;if entered username is in the usersystem it goes to the second screen">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/Album.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/Photo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/Tag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/users.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/users.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/users.dat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/adminHomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/adminHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/adminHome.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/logInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/userHomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Controllers/userHomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/Model/UserSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/photos/PhotoApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/photos/userHome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/photos/userHome.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -54,33 +63,34 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Launcher.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Photo.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PhotoApp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserSystem.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.example.photos.PhotoApp.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Photos [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "Application.Launcher.executor": "Run",
+    "Application.Photo.executor": "Run",
+    "Application.PhotoApp.executor": "Run",
+    "Application.UserSystem.executor": "Run",
+    "Application.com.example.photos.PhotoApp.executor": "Run",
+    "Maven.Photos [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="QodanaReportsService">
     <option name="descriptions">
       <ReportDescription localRun="true" path="C:\Users\Gigna\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="3b8cdcd0-6309-4581-952f-62f895d71021" reportId="Photos/qodana/2024-03-28" />
@@ -88,6 +98,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Gigna\IdeaProjects\Photos\data" />
       <recent name="C:\Users\Gigna\IdeaProjects\Photos" />
       <recent name="C:\Users\Gigna\IdeaProjects\Photos\src\main\java\com\example\photos" />
     </key>
@@ -166,7 +177,7 @@
       <updated>1711609626570</updated>
       <workItem from="1711609627733" duration="18000" />
       <workItem from="1711719774581" duration="12048000" />
-      <workItem from="1711746534252" duration="3873000" />
+      <workItem from="1711746534252" duration="29472000" />
     </task>
     <servers />
   </component>

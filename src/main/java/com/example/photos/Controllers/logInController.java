@@ -1,7 +1,6 @@
 package com.example.photos.Controllers;
 
 import com.example.photos.Model.Admin;
-import com.example.photos.Model.User;
 import com.example.photos.Model.UserSystem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,41 +12,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static com.example.photos.Model.UserSystem.*;
 
 public class logInController {
-
     public UserSystem s;
-
     public File dir = new File("data");
     public Button loginButton;
     public Label errorMessage;
     public Button helpButton;
     @FXML
     TextField nameTextField;
-
     public Stage stage;
     public Scene scene;
     public Parent root;
 
     public void login(ActionEvent event) throws IOException, ClassNotFoundException, URISyntaxException {
-
-        if(hasData()){
-            s = readApp();
-        }
-        else{
-            s = new UserSystem();
-        }
-
+        s = readApp();
         String username = nameTextField.getText();
 
         if(s.check(username)) {
@@ -70,6 +53,7 @@ public class logInController {
                 root = loader.load();
 
                 userHomeController userHomeController = loader.getController();
+                userHomeController.loadSystem(s);
                 userHomeController.displayName(username);
 
                 //root = FXMLLoader.load(getClass().getResource("logIn.xml"));
@@ -82,13 +66,12 @@ public class logInController {
         else{
             errorMessage.setText("Please enter a valid username");
         }
-        stage.setOnHiding( e -> {
+        stage.setOnHidden( e -> {
             try {
                 writeApp(s);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-
         });
     }
     public void help(ActionEvent event) throws IOException{

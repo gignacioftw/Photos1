@@ -53,7 +53,6 @@ public class adminHomeController {
     Button createUser1;
     @FXML
     Label nameLabel;
-
     UserSystem s;
 
     public void displayName(String username){
@@ -138,9 +137,6 @@ public class adminHomeController {
         listOfUsers.setItems(items);
     }
 
-    public void pauseEnd(ActionEvent event){
-
-    }
     public void create1(ActionEvent event) {
         createUser1.setVisible(false);
         usernameInput.setVisible(false);

@@ -12,16 +12,32 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.example.photos.Model.UserSystem.*;
+
 public class PhotoApp extends Application {
 
     UserSystem s;
     @Override
-    public void start(Stage logInstage) throws IOException {
+    public void start(Stage logInstage) throws IOException, ClassNotFoundException {
+        if(hasData()){
+            s = readApp();
+        }
+        else{
+            s = new UserSystem();
+            writeApp(s);
+        }
         Parent root = FXMLLoader.load(getClass().getResource("logIn.fxml"));
         Scene scene = new Scene(root);
         logInstage.setResizable(false);
         logInstage.setTitle("Photos");
         logInstage.setScene(scene);
+        logInstage.setOnHidden( e -> {
+            try {
+                writeApp(s);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         logInstage.show();
 
     }
