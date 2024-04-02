@@ -26,6 +26,7 @@ make sure not to push your user.dat or any of the things in your data folder whi
 
 how should we do the tag system? it says some can have multiple and the user can create their own tag type that they can designate whether it can have multiple or just one.
 
+also wanna change the ui of the userhome screen.
 
 
 ## License
