@@ -35,6 +35,8 @@ public class userHomeController {
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
     private ObservableList<Label> labels = FXCollections.observableArrayList();
     @FXML
+    Label createLabel;
+    @FXML
     Button deleteConfirm;
     @FXML
     Button deleteCancel;
@@ -76,50 +78,79 @@ public class userHomeController {
             imageView.setFitWidth(20);
             imageView.setPreserveRatio(true);
             b.setGraphic(imageView);
+            b.setStyle(("-fx-background-color:transparent"));
             vbox.getChildren().add(b);
             Label l = new Label(albumName);
             labels.add(l);
             vbox.getChildren().add(l);
-            b.setOnMouseClicked(e -> {
-                for(Button but : buttons){
-                    if(but == b){
-                        b.setStyle(("-fx-background-color:#dae7f3;"));
-                    }
-                    else{
-                        but.setStyle(("-fx-background-color:transparent"));
-                    }
-                }
-                for(Label lab : labels){
-                    if(lab == l){
-                        l.setStyle(("-fx-background-color:#dae7f3;"));
-                        updateText(l.getText());
-                    }
-                    else{
-                        lab.setStyle(("-fx-background-color:transparent"));
-                    }
-                }
-                name = l.getText();
-                e.consume();
-            });
+            mouseClick(b, l);
         }
     }
+
+    private void mouseClick(Button b, Label l) {
+        b.setOnMouseClicked(e -> {
+            for(Button but : buttons){
+                if(but == b){
+                    b.setStyle(("-fx-background-color:#dae7f3;"));
+                }
+                else{
+                    but.setStyle(("-fx-background-color:transparent"));
+                }
+            }
+            for(Label lab : labels){
+                if(lab == l){
+                    l.setStyle(("-fx-background-color:#dae7f3;"));
+                    updateText(l.getText());
+                }
+                else{
+                    lab.setStyle(("-fx-background-color:transparent"));
+                }
+            }
+            name = l.getText();
+            e.consume();
+        });
+    }
+
     public void loadSystem(UserSystem s){
         this.s = s;
     }
 
     public void create(ActionEvent event) throws IOException {
         String album = albumInput.getText();
-        User u = (User)s.getUser(username);
-        u.addAlbum(new Album(album));
-        items.add(album);
-        InputStream stream = new FileInputStream("data/folder.png");
-        Image image = new Image(stream);
-        ImageView imageView = new ImageView();
-        imageView.setImage(image);
-        imageView.setFitWidth(20);
-        imageView.setPreserveRatio(true);
-        vbox.getChildren().add(imageView);
-        vbox.getChildren().add(new Label(album));
+        User u = (User) s.getUser(username);
+        String[] albums = u.getAlbumNames();
+        if(!album.isEmpty()){
+            if(u.hasAlbum(album)){
+                createLabel.setText("Duplicate album");
+                returnCreate();
+            }
+            else{
+                u.addAlbum(new Album(album));
+                items.add(album);
+                InputStream stream = new FileInputStream("data/folder.png");
+                Image image = new Image(stream);
+                ImageView imageView = new ImageView();
+                imageView.setImage(image);
+                imageView.setFitWidth(20);
+                imageView.setPreserveRatio(true);
+                Button b = new Button();
+                b.setGraphic(imageView);
+                b.setStyle(("-fx-background-color:transparent"));
+                vbox.getChildren().add(b);
+                buttons.add(b);
+                Label l = new Label(album);
+                vbox.getChildren().add(l);
+                labels.add(l);
+                mouseClick(b, l);
+                albumInput.setText("");
+                createLabel.setText(album +" created successfully");
+                returnCreate();
+            }
+        }
+        else{
+            createLabel.setText("Please enter a valid album name");
+            returnCreate();
+        }
     }
 
     public void delete(ActionEvent event){
@@ -155,7 +186,7 @@ public class userHomeController {
     }
 
     public void deleteConfirm(ActionEvent event){
-        deleteLabel.setText(name + " was successfully deleted");
+        deleteLabel.setText(name + " successfully deleted");
         for(Button b : buttons){
             if(b.getStyle().equals(("-fx-background-color:#dae7f3;"))){
                 vbox.getChildren().remove(b);
@@ -181,6 +212,16 @@ public class userHomeController {
         });
         message.play();
     }
+
+    private void returnCreate(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            createLabel.setText("");
+        });
+        message.play();
+    }
+
 
     public void updateText(String name){
         if(!deleteLabel.getText().isEmpty()){

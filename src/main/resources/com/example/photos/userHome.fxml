@@ -15,4 +15,5 @@
    <Label fx:id="deleteLabel" alignment="TOP_LEFT" layoutX="167.0" layoutY="145.0" prefHeight="42.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
    <Button fx:id="deleteCancel" layoutX="300.0" layoutY="188.0" mnemonicParsing="false" onAction="#deleteCancel" text="Cancel" />
    <Button fx:id="deleteConfirm" layoutX="183.0" layoutY="188.0" mnemonicParsing="false" onAction="#deleteConfirm" text="Confirm" />
+   <Label fx:id="createLabel" alignment="CENTER" layoutX="142.0" layoutY="69.0" prefHeight="25.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
 </AnchorPane>

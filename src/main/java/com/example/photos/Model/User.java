@@ -27,6 +27,9 @@ public class User implements Serializable {
         albums.remove(albumName);
     }
 
+    public Boolean hasAlbum(String albumName){
+        return albums.containsKey(albumName);
+    }
     public void renameAlbum(String originalName, String newName){
         Album a = albums.get(originalName);
         a.changeName(newName);
