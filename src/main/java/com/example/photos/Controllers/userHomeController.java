@@ -3,6 +3,7 @@ package com.example.photos.Controllers;
 import com.example.photos.Model.Album;
 import com.example.photos.Model.User;
 import com.example.photos.Model.UserSystem;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -32,6 +34,8 @@ public class userHomeController {
     private ObservableList<String> items = FXCollections.observableArrayList();
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
     private ObservableList<Label> labels = FXCollections.observableArrayList();
+    @FXML
+    Button deleteConfirm;
     @FXML
     Button deleteCancel;
     @FXML
@@ -52,6 +56,7 @@ public class userHomeController {
     String name;
     public void displayName(String username) throws IOException, ClassNotFoundException {
         deleteCancel.setVisible(false);
+        deleteConfirm.setVisible(false);
         int i = 0;
         InputStream stream = new FileInputStream("data/folder.png");
         Image image = new Image(stream);
@@ -125,11 +130,13 @@ public class userHomeController {
         else{
             deleteLabel.setText("Are you sure you want to delete: " +name + "?");
             deleteCancel.setVisible(true);
+            deleteConfirm.setVisible(true);
         }
     }
 
     public void deleteCancel(ActionEvent event){
         deleteCancel.setVisible(false);
+        deleteConfirm.setVisible(false);
         deleteLabel.setText("");
         cancel();
     }
@@ -146,6 +153,35 @@ public class userHomeController {
             }
         }
     }
+
+    public void deleteConfirm(ActionEvent event){
+        deleteLabel.setText(name + " was successfully deleted");
+        for(Button b : buttons){
+            if(b.getStyle().equals(("-fx-background-color:#dae7f3;"))){
+                vbox.getChildren().remove(b);
+            }
+        }
+        for(Label l : labels){
+            if(l.getText().equals(name)){
+                vbox.getChildren().remove(l);
+            }
+        }
+        deleteConfirm.setVisible(false);
+        deleteCancel.setVisible(false);
+        returnDelete();
+        User u = (User)s.getUser(username);
+        u.deleteAlbum(name);
+    }
+
+    private void returnDelete(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            deleteLabel.setText("");
+        });
+        message.play();
+    }
+
     public void updateText(String name){
         if(!deleteLabel.getText().isEmpty()){
             deleteLabel.setText("Are you sure you want to delete: " +name + "?");
