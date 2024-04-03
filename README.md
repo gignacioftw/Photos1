@@ -1,6 +1,5 @@
 # TODO
 ### user system:
-delete album\
 renaming album\
 open album
 - add photo
