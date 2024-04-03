@@ -35,6 +35,18 @@ public class userHomeController {
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
     private ObservableList<Label> labels = FXCollections.observableArrayList();
     @FXML
+    Label renameConfirmLabel;
+    @FXML
+    Button renameAlbum;
+    @FXML
+    Button renameConfirm;
+    @FXML
+    Button renameCancel;
+    @FXML
+    Label renameLabel;
+    @FXML
+    TextField renameInput;
+    @FXML
     Label createLabel;
     @FXML
     Button deleteConfirm;
@@ -45,7 +57,7 @@ public class userHomeController {
     @FXML
     Button deleteAlbum;
     @FXML
-    TextField albumInput;
+    TextField createInput;
     @FXML
     Button createAlbum;
     @FXML
@@ -59,6 +71,8 @@ public class userHomeController {
     public void displayName(String username) throws IOException, ClassNotFoundException {
         deleteCancel.setVisible(false);
         deleteConfirm.setVisible(false);
+        renameConfirm.setVisible(false);
+        renameCancel.setVisible(false);
         int i = 0;
         InputStream stream = new FileInputStream("data/folder.png");
         Image image = new Image(stream);
@@ -116,7 +130,7 @@ public class userHomeController {
     }
 
     public void create(ActionEvent event) throws IOException {
-        String album = albumInput.getText();
+        String album = createInput.getText();
         User u = (User) s.getUser(username);
         String[] albums = u.getAlbumNames();
         if(!album.isEmpty()){
@@ -142,7 +156,7 @@ public class userHomeController {
                 vbox.getChildren().add(l);
                 labels.add(l);
                 mouseClick(b, l);
-                albumInput.setText("");
+                createInput.setText("");
                 createLabel.setText(album +" created successfully");
                 returnCreate();
             }
@@ -153,10 +167,14 @@ public class userHomeController {
         }
     }
 
+    public void deselect(ActionEvent event){
+        deselectM();
+    }
     public void delete(ActionEvent event){
         deleteLabel.setWrapText(true);
         if(name == null){
             deleteLabel.setText("Please select an album");
+            returnDelete();
         }
         else{
             deleteLabel.setText("Are you sure you want to delete: " +name + "?");
@@ -169,6 +187,7 @@ public class userHomeController {
         deleteCancel.setVisible(false);
         deleteConfirm.setVisible(false);
         deleteLabel.setText("");
+        name = null;
         cancel();
     }
 
@@ -184,6 +203,37 @@ public class userHomeController {
             }
         }
     }
+
+    public void rename(ActionEvent event){
+        String album = renameInput.getText();
+        String n = "Please select an album";
+        String a = "Please enter new name";
+        User u = (User) s.getUser(username);
+        if(!album.isEmpty() && name != null){
+            if(u.hasAlbum(album)){
+                renameLabel.setText("Duplicate album");
+                returnRename();
+            }
+            else{
+                renameInput.setVisible(false);
+                renameConfirm.setVisible(true);
+                renameCancel.setVisible(true);
+                renameLabel.setText("");
+                renameConfirmLabel.setWrapText(true);
+                renameConfirmLabel.setText("Are you sure you want to \nrename: " +name +" to: " +album +"?");
+            }
+        }
+        else if(album.isEmpty() && name == null){
+            renameLabel.setText(n +"\n"+a);
+        }
+        else if(!album.isEmpty()){
+            renameLabel.setText(n);
+        }
+        else{
+            renameLabel.setText(a);
+        }
+    }
+
 
     public void deleteConfirm(ActionEvent event){
         deleteLabel.setText(name + " successfully deleted");
@@ -206,7 +256,7 @@ public class userHomeController {
 
     private void returnDelete(){
         PauseTransition message = new PauseTransition();
-        message.setDuration(Duration.seconds(2));
+        message.setDuration(Duration.seconds(1));
         message.setOnFinished(e -> {
             deleteLabel.setText("");
         });
@@ -222,6 +272,26 @@ public class userHomeController {
         message.play();
     }
 
+    private void returnRename(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            renameConfirmLabel.setText("");
+        });
+        message.play();
+    }
+
+    private void returnRenameConfirm(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            renameConfirmLabel.setText("");
+            renameInput.setVisible(true);
+            renameInput.setText("");
+        });
+        message.play();
+    }
+
 
     public void updateText(String name){
         if(!deleteLabel.getText().isEmpty()){
@@ -229,4 +299,45 @@ public class userHomeController {
         }
     }
 
+    public void renameCancel(ActionEvent event) {
+        renameConfirmLabel.setText("");
+        renameInput.setVisible(true);
+        renameCancel.setVisible(false);
+        renameConfirm.setVisible(false);
+        renameInput.setText("");
+        deselectM();
+
+    }
+
+    private void deselectM() {
+        for(Button but : buttons){
+            if(but.getStyle().equals(("-fx-background-color:#dae7f3;"))) {
+                but.setStyle("-fx-background-color:transparent");
+            }
+        }
+        for(Label lab : labels){
+            if(lab.getText().equals(name)){
+                lab.setStyle(("-fx-background-color:transparent;"));
+                name = null;
+            }
+        }
+    }
+
+    public void renameConfirm(ActionEvent event){
+        User u = (User) s.getUser(username);
+        for(Label l : labels){
+            if(l.getText().equals(name)){
+                u.renameAlbum(name, renameInput.getText());
+                int i = vbox.getChildren().indexOf(l);
+                vbox.getChildren().remove(l);
+                l.setText(renameInput.getText());
+                vbox.getChildren().add(i, l);
+                renameConfirm.setVisible(false);
+                renameCancel.setVisible(false);
+                renameConfirmLabel.setText("Album renamed successfully");
+                returnRenameConfirm();
+                name = renameInput.getText();
+            }
+        }
+    }
 }
