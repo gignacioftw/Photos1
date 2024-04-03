@@ -150,6 +150,7 @@ public class userHomeController {
             else{
                 u.addAlbum(new Album(album));
                 items.add(album);
+                a = u.getAlbum(album);
                 InputStream stream = new FileInputStream("data/folder.png");
                 Image image = new Image(stream);
                 ImageView imageView = new ImageView();
@@ -297,6 +298,7 @@ public class userHomeController {
         message.setDuration(Duration.seconds(2));
         message.setOnFinished(e -> {
             createLabel.setText("");
+            a = null;
         });
         message.play();
     }

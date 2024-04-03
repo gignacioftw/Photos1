@@ -31,6 +31,7 @@ public class logInController {
 
     public void login(ActionEvent event) throws IOException, ClassNotFoundException, URISyntaxException {
         s = readApp();
+        String[] users = s.returnUsers();
         String username = nameTextField.getText();
 
         if(s.check(username)) {
@@ -62,17 +63,17 @@ public class logInController {
                 stage.setScene(scene);
                 stage.show();
             }
+            stage.setOnHidden( e -> {
+                try {
+                    writeApp(s);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
         }
         else{
             errorMessage.setText("Please enter a valid username");
         }
-        stage.setOnHidden( e -> {
-            try {
-                writeApp(s);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
     }
     public void help(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/logInhelp.fxml"));
