@@ -57,12 +57,11 @@ public class UserSystem implements Serializable {
 
     public static void main(String[]args) throws IOException, ClassNotFoundException {
         UserSystem s = readApp();
-        s.printUsernames(s.returnUsers());
-        User u = (User)s.getUser("monkey");
-        u.addAlbum(new Album("poop"));
-        //u.createAlbum("monkey dinesh");
-        String[] albumNames = u.getAlbumNames();
-        s.printUsernames(albumNames);
+        User u = (User) s.getUser("stock");
+        u.addAlbum(new Album("stock"));
+        Album a = u.getAlbum("stock");
+        File file = new File("data/depositphotos_10880054-stock-photo-monkey-looking-on-a-computer.jpg");
+        a.addPhoto(new Photo(file.getName(), file.getPath()));
         writeApp(s);
     }
 }

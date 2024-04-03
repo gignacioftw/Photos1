@@ -9,14 +9,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.swing.*;
@@ -34,6 +38,8 @@ public class userHomeController {
     private ObservableList<String> items = FXCollections.observableArrayList();
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
     private ObservableList<Label> labels = FXCollections.observableArrayList();
+    @FXML
+    Label openLabel;
     @FXML
     Label renameConfirmLabel;
     @FXML
@@ -65,9 +71,13 @@ public class userHomeController {
     @FXML
     Label nameLabel;
     UserSystem s;
-
+    Album a;
     String username;
     String name;
+
+    public Stage stage;
+    public Scene scene;
+    public Parent root;
     public void displayName(String username) throws IOException, ClassNotFoundException {
         deleteCancel.setVisible(false);
         deleteConfirm.setVisible(false);
@@ -80,11 +90,14 @@ public class userHomeController {
         this.username = username;
         User u = (User) s.getUser(username);
         String[] albumNames = u.getAlbumNames();
+
         items.addAll(albumNames);
         vbox.setHgap(10);
         vbox.setVgap(10);
         vbox.setOrientation(Orientation.VERTICAL);
         for (String albumName : items) {
+            Album a = u.getAlbum(albumName);
+            this.a = a;
             Button b = new Button();
             buttons.add(b);
             ImageView imageView = new ImageView();
@@ -93,42 +106,38 @@ public class userHomeController {
             imageView.setPreserveRatio(true);
             b.setGraphic(imageView);
             b.setStyle(("-fx-background-color:transparent"));
+            b.setTextAlignment(TextAlignment.CENTER);
+            b.setContentDisplay(ContentDisplay.TOP);
             vbox.getChildren().add(b);
-            Label l = new Label(albumName);
-            labels.add(l);
-            vbox.getChildren().add(l);
-            mouseClick(b, l);
+            b.setText(albumName + "\n" +a.getNumOfPhotos() + " photos");
+            mouseClick(b);
+            this.a = null;
         }
     }
 
-    private void mouseClick(Button b, Label l) {
+    private void mouseClick(Button b) {
         b.setOnMouseClicked(e -> {
+            String albumName = "";
             for(Button but : buttons){
                 if(but == b){
                     b.setStyle(("-fx-background-color:#dae7f3;"));
+                    for(String s : items){
+                        if(b.getText().contains(s)){
+                            albumName = s;
+                        }
+                    }
                 }
                 else{
                     but.setStyle(("-fx-background-color:transparent"));
                 }
             }
-            for(Label lab : labels){
-                if(lab == l){
-                    l.setStyle(("-fx-background-color:#dae7f3;"));
-                    updateText(l.getText());
-                }
-                else{
-                    lab.setStyle(("-fx-background-color:transparent"));
-                }
-            }
-            name = l.getText();
-            e.consume();
+            name = albumName;
         });
     }
 
     public void loadSystem(UserSystem s){
         this.s = s;
     }
-
     public void create(ActionEvent event) throws IOException {
         String album = createInput.getText();
         User u = (User) s.getUser(username);
@@ -150,12 +159,12 @@ public class userHomeController {
                 Button b = new Button();
                 b.setGraphic(imageView);
                 b.setStyle(("-fx-background-color:transparent"));
+                b.setTextAlignment(TextAlignment.CENTER);
+                b.setContentDisplay(ContentDisplay.TOP);
+                b.setText(createInput.getText() + "\n" +a.getNumOfPhotos() + " photos");
                 vbox.getChildren().add(b);
                 buttons.add(b);
-                Label l = new Label(album);
-                vbox.getChildren().add(l);
-                labels.add(l);
-                mouseClick(b, l);
+                mouseClick(b);
                 createInput.setText("");
                 createLabel.setText(album +" created successfully");
                 returnCreate();
@@ -197,10 +206,25 @@ public class userHomeController {
             b.setStyle(("-fx-background-color:transparent"));
             }
         }
-        for(Label l : labels){
-            if(l.getStyle().equals(("-fx-background-color:#dae7f3;"))){
-                l.setStyle(("-fx-background-color:transparent"));
-            }
+    }
+
+    public void open(ActionEvent event) throws IOException {
+        if(name == null){
+            openLabel.setText("Please select an album");
+            returnOpen();
+        }
+        else{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/open.fxml"));
+            root = loader.load();
+
+            openController openController = loader.getController();
+            openController.loadSystem(s, username);
+            openController.displayName(username, name);
+
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
@@ -242,16 +266,12 @@ public class userHomeController {
                 vbox.getChildren().remove(b);
             }
         }
-        for(Label l : labels){
-            if(l.getText().equals(name)){
-                vbox.getChildren().remove(l);
-            }
-        }
         deleteConfirm.setVisible(false);
         deleteCancel.setVisible(false);
         returnDelete();
         User u = (User)s.getUser(username);
         u.deleteAlbum(name);
+        name = null;
     }
 
     private void returnDelete(){
@@ -259,6 +279,15 @@ public class userHomeController {
         message.setDuration(Duration.seconds(1));
         message.setOnFinished(e -> {
             deleteLabel.setText("");
+        });
+        message.play();
+    }
+
+    private void returnOpen(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(1));
+        message.setOnFinished(e -> {
+            openLabel.setText("");
         });
         message.play();
     }
@@ -288,6 +317,7 @@ public class userHomeController {
             renameConfirmLabel.setText("");
             renameInput.setVisible(true);
             renameInput.setText("");
+            deselectM();
         });
         message.play();
     }
@@ -313,11 +343,6 @@ public class userHomeController {
         for(Button but : buttons){
             if(but.getStyle().equals(("-fx-background-color:#dae7f3;"))) {
                 but.setStyle("-fx-background-color:transparent");
-            }
-        }
-        for(Label lab : labels){
-            if(lab.getText().equals(name)){
-                lab.setStyle(("-fx-background-color:transparent;"));
                 name = null;
             }
         }
@@ -325,18 +350,20 @@ public class userHomeController {
 
     public void renameConfirm(ActionEvent event){
         User u = (User) s.getUser(username);
-        for(Label l : labels){
-            if(l.getText().equals(name)){
+        for(Button b : buttons){
+            if(b.getText().contains(name)){
                 u.renameAlbum(name, renameInput.getText());
-                int i = vbox.getChildren().indexOf(l);
-                vbox.getChildren().remove(l);
-                l.setText(renameInput.getText());
-                vbox.getChildren().add(i, l);
+                int i = vbox.getChildren().indexOf(b);
+                vbox.getChildren().remove(b);
+                b.setText(renameInput.getText() +"\n" + u.getAlbum(renameInput.getText()).getNumOfPhotos() +" photos");
+                vbox.getChildren().add(i, b);
                 renameConfirm.setVisible(false);
                 renameCancel.setVisible(false);
                 renameConfirmLabel.setText("Album renamed successfully");
-                returnRenameConfirm();
+                items.remove(name);
+                items.add(renameInput.getText());
                 name = renameInput.getText();
+                returnRenameConfirm();
             }
         }
     }

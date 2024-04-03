@@ -13,6 +13,7 @@ public class Album implements Serializable {
 
     public Album(String albumName){
         this.albumName = albumName;
+        photos = new HashMap<>();
     }
 
     public String getAlbumName(){
@@ -28,6 +29,10 @@ public class Album implements Serializable {
 
     public int getNumOfPhotos(){
         return photos.size();
+    }
+
+    public Photo[] getPhotos(){
+        return photos.values().toArray(new Photo[0]);
     }
 
 }
