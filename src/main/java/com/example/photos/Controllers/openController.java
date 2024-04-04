@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -56,21 +57,24 @@ public class openController {
     TilePane vbox;
     @FXML
     Label addLabel;
-
+    
+    private Scene preScene;
     private ObservableList<Photo> items = FXCollections.observableArrayList();
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
     UserSystem s;
     String name;
     Album a;
+
+    User u;
     public Stage stage;
     public Scene scene;
-    public void displayName(String username, String albumName) throws FileNotFoundException {
+    public void displayName() throws FileNotFoundException {
         deleteYes.setVisible(false);
         deleteNo.setVisible(false);
         renameNo.setVisible(false);
         renameYes.setVisible(false);
-        nameLabel.setText("Hello: " +username);
-        albumTitle.setText(albumName);
+        nameLabel.setText(u.getUsername());
+        albumTitle.setText(a.getAlbumName());
         Photo[] picture = a.getPhotos();
         items.addAll(picture);
         vbox.setOrientation(Orientation.HORIZONTAL);
@@ -98,6 +102,16 @@ public class openController {
         }
     }
 
+    public void loadSystem(UserSystem system, String username, String albumName){
+        this.s = system;
+        this.u = (User) s.getUser(username);
+        this.a = u.getAlbum(albumName);
+    }
+
+    public void setPreScene(Scene preScene) {
+        this.preScene = preScene;
+    }
+
     private void mouseClick(Button b) {
         b.setOnMouseClicked(e -> {
             for(Button but : buttons){
@@ -111,11 +125,6 @@ public class openController {
             name = b.getText();
             e.consume();
         });
-    }
-
-    public void loadSystem(UserSystem system, String username){
-        this.s = system;
-        this.a = (((User)s.getUser(username)).getAlbum(username));
     }
 
     public void add(ActionEvent event) throws FileNotFoundException {
@@ -146,6 +155,13 @@ public class openController {
             returnAdd();
         }
     }
+
+    public void back(ActionEvent event){
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(preScene);
+        stage.show();
+    }
+
     public void rename(ActionEvent event){
         String photo = renameInput.getText();
         String n = "Please select a photo";
@@ -308,5 +324,14 @@ public class openController {
                 name = null;
             }
         }
+    }
+
+    public void caption(ActionEvent event) {
+    }
+
+    public void tag(ActionEvent event) {
+    }
+
+    public void slideshow(ActionEvent event) {
     }
 }

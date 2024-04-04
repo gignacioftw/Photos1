@@ -7,7 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.swing.*;
@@ -55,6 +59,9 @@ public class adminHomeController {
     Label nameLabel;
     UserSystem s;
 
+    private Scene preScene;
+    public Stage stage;
+    public Scene scene;
     public void displayName(String username){
         createCancel.setVisible(false);
         deleteNo.setVisible(false);
@@ -72,6 +79,10 @@ public class adminHomeController {
         nameLabel.setText("Hello: " +username);
     }
 
+    public void setPreScene(Scene preScene) {
+        this.preScene = preScene;
+    }
+
     public void loadSystem(UserSystem s){
         this.s = s;
         String[] usernames = s.returnUsers();
@@ -85,6 +96,11 @@ public class adminHomeController {
         createCancel.setVisible(true);
     }
 
+    public void logout(ActionEvent event){
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(preScene);
+        stage.show();
+    }
     public void delete(ActionEvent event) {
         deleteUser.setVisible(false);
         deleteUser1.setVisible(true);

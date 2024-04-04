@@ -36,12 +36,14 @@ public class logInController {
 
         if(s.check(username)) {
             if (s.getUser(username) instanceof Admin) {
+                nameTextField.setText("");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/adminHome.fxml"));
                 root = loader.load();
 
                 adminHomeController adminHomeController = loader.getController();
                 adminHomeController.displayName(username);
                 adminHomeController.loadSystem(s);
+                adminHomeController.setPreScene(loginButton.getScene());
 
                 //root = FXMLLoader.load(getClass().getResource("logIn.xml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -50,12 +52,14 @@ public class logInController {
                 stage.show();
             }
             else{
+                nameTextField.setText("");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/userHome.fxml"));
                 root = loader.load();
 
                 userHomeController userHomeController = loader.getController();
                 userHomeController.loadSystem(s);
                 userHomeController.displayName(username);
+                userHomeController.setPreScene(loginButton.getScene());
 
                 //root = FXMLLoader.load(getClass().getResource("logIn.xml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

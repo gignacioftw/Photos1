@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.openController">
-   <ScrollPane fx:id="buttonScroll" layoutY="64.0" prefHeight="296.0" prefWidth="200.0">
+   <ScrollPane fx:id="buttonScroll" layoutY="33.0" prefHeight="367.0" prefWidth="200.0">
       <content>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="200.0">
             <children>
@@ -30,21 +30,29 @@
          </AnchorPane>
       </content>
    </ScrollPane>
-    <Label fx:id="nameLabel" layoutX="21.0" layoutY="23.0" text="Hello: " />
-   <Label fx:id="albumTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="16.0" prefHeight="48.0" prefWidth="194.0" text="Album Name" textAlignment="CENTER">
-      <font>
-         <Font size="25.0" />
-      </font>
-   </Label>
-   <ScrollPane layoutX="198.0" layoutY="64.0" prefHeight="296.0" prefWidth="388.0">
+   <AnchorPane layoutY="-2.0" prefHeight="36.0" prefWidth="600.0" style="-fx-background-color: d3d3d3;">
+      <children>
+         <Label fx:id="albumTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="-1.0" prefHeight="27.0" prefWidth="194.0" text="Album Name" textAlignment="CENTER">
+            <font>
+               <Font size="25.0" />
+            </font>
+         </Label>
+         <Button fx:id="backButton" layoutY="6.0" mnemonicParsing="false" onAction="#back" text="Back" />
+         <Label fx:id="nameLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="392.0" layoutY="5.0" prefHeight="27.0" prefWidth="194.0" text="Album Name" textAlignment="RIGHT" textFill="#0a5a83" />
+      </children>
+   </AnchorPane>
+   <ScrollPane layoutX="198.0" layoutY="33.0" prefHeight="342.0" prefWidth="402.0">
       <content>
-         <TilePane fx:id="vbox" prefHeight="430.0" prefWidth="376.0" style="-fx-border-color: blue;">
+         <TilePane fx:id="vbox" prefHeight="438.0" prefWidth="449.0">
             <cursor>
                <Cursor fx:constant="DEFAULT" />
             </cursor>
          </TilePane>
       </content>
    </ScrollPane>
-   <Button fx:id="deselectButton" layoutX="324.0" layoutY="360.0" mnemonicParsing="false" onAction="#deselect" prefHeight="25.0" prefWidth="137.0" text="Deselect" textAlignment="CENTER" />
+   <Button fx:id="deselectButton" layoutX="199.0" layoutY="373.0" mnemonicParsing="false" onAction="#deselect" prefHeight="27.0" prefWidth="101.0" text="Deselect" textAlignment="CENTER" />
+   <Button fx:id="captionMenu" layoutX="297.0" layoutY="373.0" mnemonicParsing="false" onAction="#caption" prefHeight="27.0" prefWidth="100.5" text="Caption Menu" textAlignment="CENTER" />
+   <Button fx:id="tagMenu" layoutX="398.0" layoutY="373.0" mnemonicParsing="false" onAction="#tag" prefHeight="27.0" prefWidth="100.5" text="Tag" textAlignment="CENTER" />
+   <Button fx:id="slideshow" layoutX="499.0" layoutY="373.0" mnemonicParsing="false" onAction="#slideshow" prefHeight="27.0" prefWidth="100.5" text="Tag" textAlignment="CENTER" />
 
 </AnchorPane>
