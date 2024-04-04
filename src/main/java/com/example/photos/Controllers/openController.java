@@ -11,27 +11,31 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class openController {
+    @FXML
+    ScrollPane buttonScroll;
+    @FXML
+    Label deleteLabel;
+    @FXML
+    Button deleteYes;
+    @FXML
+    Button deleteNo;
     @FXML
     Label renameTopLabel;
     @FXML
@@ -60,13 +64,13 @@ public class openController {
     Album a;
     public Stage stage;
     public Scene scene;
-    public Parent root;
     public void displayName(String username, String albumName) throws FileNotFoundException {
+        deleteYes.setVisible(false);
+        deleteNo.setVisible(false);
         renameNo.setVisible(false);
         renameYes.setVisible(false);
         nameLabel.setText("Hello: " +username);
         albumTitle.setText(albumName);
-        int i = 0;
         Photo[] picture = a.getPhotos();
         items.addAll(picture);
         vbox.setOrientation(Orientation.HORIZONTAL);
@@ -84,9 +88,9 @@ public class openController {
             imageView.setPreserveRatio(true);
             b.setGraphic(imageView);
             b.setText(p.getName());
-            b.setAlignment(Pos.TOP_LEFT);
-            b.setTextAlignment(TextAlignment.LEFT);
+            b.setTextAlignment(TextAlignment.CENTER);
             b.setContentDisplay(ContentDisplay.TOP);
+            b.setMaxWidth(30);
             b.setStyle(("-fx-background-color:transparent"));
             b.setWrapText(true);
             vbox.getChildren().add(b);
@@ -127,9 +131,8 @@ public class openController {
         );
         File selected = f.showOpenDialog(stage);
         if(selected != null){
-            a.addPhoto(new Photo(selected.getName(), selected.getPath()));
-            addLabel.setText(selected.getName());
-            items.add(new Photo(selected.getName(), selected.getPath()));
+            a.addPhoto(new Photo(selected.getName().substring(0, selected.getName().indexOf(".")), selected.getPath()));
+            items.add(new Photo(selected.getName().substring(0, selected.getName().indexOf(".")), selected.getPath()));
             Button b = getButton(selected);
             vbox.getChildren().add(b);
             buttons.add(b);
@@ -175,6 +178,20 @@ public class openController {
             returnTopRename();
         }
     }
+
+    public void delete(ActionEvent Event){
+        buttonScroll.setVvalue(.5);
+        if(name == null){
+            deleteLabel.setText("Please select an album");
+            returnDelete();
+        }
+        else{
+            deleteLabel.setWrapText(true);
+            deleteLabel.setText("Are you sure you want to delete: " +trunc(name) + "?");
+            deleteYes.setVisible(true);
+            deleteNo.setVisible(true);
+        }
+    }
     private static Button getButton(File selected) throws FileNotFoundException {
         InputStream stream = new FileInputStream(selected.getPath());
         Image image = new Image(stream);
@@ -185,7 +202,9 @@ public class openController {
         Button b = new Button();
         b.setGraphic(imageView);
         b.setStyle(("-fx-background-color:transparent"));
-        b.setText(selected.getName());
+        b.setText(selected.getName().substring(0, selected.getName().indexOf(".")));
+        b.setMaxWidth(30);
+        b.setTextAlignment(TextAlignment.CENTER);
         b.setWrapText(true);
         b.setContentDisplay(ContentDisplay.TOP);
         return b;
@@ -201,26 +220,21 @@ public class openController {
     private void returnAdd(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            addLabel.setText("");
-        });
+        message.setOnFinished(e -> addLabel.setText(""));
         message.play();
     }
 
-    private void returnRename(){
+    private void returnDelete(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            renameLabel.setText("");
-        });
+        message.setOnFinished(e -> deleteLabel.setText(""));
         message.play();
     }
+
     private void returnTopRename(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            renameTopLabel.setText("");
-        });
+        message.setOnFinished(e -> renameTopLabel.setText(""));
         message.play();
     }
 
@@ -259,5 +273,40 @@ public class openController {
         renameInput.setVisible(true);
         renameYes.setVisible(false);
         renameNo.setVisible(false);
+        deselectM();
+    }
+
+    public void deYes(ActionEvent event){
+        deleteLabel.setText("Photo deleted successfully");
+        deleteYes.setVisible(false);
+        deleteNo.setVisible(false);
+        for(Button b : buttons){
+            if(b.getStyle().equals(("-fx-background-color:#dae7f3;"))){
+                vbox.getChildren().remove(b);
+            }
+        }
+        a.removePhoto(name);
+        returnDelete();
+        deselectM();
+    }
+
+    public void deNo(ActionEvent event){
+        deleteLabel.setText("");
+        deleteYes.setVisible(false);
+        deleteNo.setVisible(false);
+        deselectM();
+    }
+
+    public void deselect(ActionEvent event){
+        deselectM();
+    }
+
+    private void deselectM() {
+        for(Button but : buttons){
+            if(but.getStyle().equals(("-fx-background-color:#dae7f3;"))) {
+                but.setStyle("-fx-background-color:transparent");
+                name = null;
+            }
+        }
     }
 }

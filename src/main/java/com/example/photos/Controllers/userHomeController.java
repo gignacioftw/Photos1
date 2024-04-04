@@ -276,7 +276,7 @@ public class userHomeController {
         returnDelete();
         User u = (User)s.getUser(username);
         u.deleteAlbum(name);
-        name = null;
+        deselectM();
     }
 
     private void returnDelete(){

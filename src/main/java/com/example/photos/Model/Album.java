@@ -24,7 +24,11 @@ public class Album implements Serializable {
     }
 
     public void addPhoto(Photo p){
-        photos.put(p.name, p);
+        photos.put(p.getName(), p);
+    }
+
+    public void removePhoto(String photoName){
+        photos.remove(photoName);
     }
 
     public int getNumOfPhotos(){

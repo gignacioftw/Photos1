@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.openController">
-   <ScrollPane layoutY="64.0" prefHeight="296.0" prefWidth="200.0">
+   <ScrollPane fx:id="buttonScroll" layoutY="64.0" prefHeight="296.0" prefWidth="200.0">
       <content>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="200.0">
             <children>
@@ -18,10 +18,14 @@
                <Label fx:id="renameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="144.0" prefHeight="66.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
                <Label fx:id="renameTopLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="63.0" prefHeight="48.0" prefWidth="139.0" textAlignment="CENTER" textFill="RED" />
                <Button fx:id="addPhoto" layoutX="54.0" layoutY="8.0" mnemonicParsing="false" onAction="#add" text="Add Photo" />
-               <Button fx:id="renameYes" layoutX="57.0" layoutY="216.0" mnemonicParsing="false" onAction="#reYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
-               <Button fx:id="renameNo" layoutX="97.0" layoutY="216.0" mnemonicParsing="false" onAction="#reNo" prefHeight="25.0" prefWidth="34.0" text="No" />
+               <Button fx:id="renameYes" layoutX="57.0" layoutY="191.0" mnemonicParsing="false" onAction="#reYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
+               <Button fx:id="renameNo" layoutX="97.0" layoutY="191.0" mnemonicParsing="false" onAction="#reNo" prefHeight="25.0" prefWidth="34.0" text="No" />
                <Button fx:id="renamePhoto" layoutX="46.0" layoutY="111.0" mnemonicParsing="false" onAction="#rename" text="Rename Photo" />
+               <Button fx:id="deletePhoto" layoutX="51.0" layoutY="237.0" mnemonicParsing="false" onAction="#delete" text="Delete Photo" />
                <TextField fx:id="renameInput" layoutX="19.0" layoutY="144.0" promptText="photo name" />
+               <Label fx:id="deleteLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="268.0" prefHeight="66.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+               <Button fx:id="deleteYes" layoutX="57.0" layoutY="309.0" mnemonicParsing="false" onAction="#deYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
+               <Button fx:id="deleteNo" layoutX="97.0" layoutY="309.0" mnemonicParsing="false" onAction="#deNo" prefHeight="25.0" prefWidth="34.0" text="No" />
             </children>
          </AnchorPane>
       </content>
@@ -34,12 +38,13 @@
    </Label>
    <ScrollPane layoutX="198.0" layoutY="64.0" prefHeight="296.0" prefWidth="388.0">
       <content>
-         <TilePane fx:id="vbox" prefHeight="394.0" prefWidth="376.0" style="-fx-border-color: blue;">
+         <TilePane fx:id="vbox" prefHeight="430.0" prefWidth="376.0" style="-fx-border-color: blue;">
             <cursor>
                <Cursor fx:constant="DEFAULT" />
             </cursor>
          </TilePane>
       </content>
    </ScrollPane>
+   <Button fx:id="deselectButton" layoutX="324.0" layoutY="360.0" mnemonicParsing="false" onAction="#deselect" prefHeight="25.0" prefWidth="137.0" text="Deselect" textAlignment="CENTER" />
 
 </AnchorPane>

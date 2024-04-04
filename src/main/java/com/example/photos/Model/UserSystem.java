@@ -31,6 +31,7 @@ public class UserSystem implements Serializable {
         return s;
     }
 
+
     public boolean check(String username){
         return users.containsKey(username);
     }
