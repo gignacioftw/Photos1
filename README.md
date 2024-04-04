@@ -1,7 +1,6 @@
 # TODO
 ### user system:
-open album
-- add photo
+open album (open done)
 - remove photo
 - caption photo
 - display photo in a area
