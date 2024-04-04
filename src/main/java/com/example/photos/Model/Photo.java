@@ -33,6 +33,10 @@ public class Photo implements Serializable {
         return name;
     }
 
+    public String getCaption(){
+        return caption;
+    }
+
     public void addCaption(String caption){
         this.caption = caption;
     }

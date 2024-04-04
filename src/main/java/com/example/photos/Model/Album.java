@@ -35,6 +35,13 @@ public class Album implements Serializable {
         return photos.size();
     }
 
+    public void addCaption(String photoName, String caption){
+        photos.get(photoName).addCaption(caption);
+    }
+
+    public Photo getPhoto(String photoName){
+        return photos.get(photoName);
+    }
     public Photo[] getPhotos(){
         return photos.values().toArray(new Photo[0]);
     }

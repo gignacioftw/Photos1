@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
@@ -23,12 +25,24 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.ArrayList;
 
 public class openController {
+    @FXML
+    TextField captionInput;
+    @FXML
+    Label addcapLabel;
+    @FXML
+    Label deletecapLabel;
+    @FXML
+    AnchorPane anchorcap;
+    @FXML
+    AnchorPane anchorpho;
+    @FXML
+    ToggleButton captionButton;
+    @FXML
+    Label errorLabel;
     @FXML
     ScrollPane buttonScroll;
     @FXML
@@ -61,13 +75,18 @@ public class openController {
     private Scene preScene;
     private ObservableList<Photo> items = FXCollections.observableArrayList();
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
+
+    private ArrayList<String> labels = new ArrayList<>();
     UserSystem s;
     String name;
     Album a;
 
+    Button b;
     User u;
     public Stage stage;
     public Scene scene;
+
+
     public void displayName() throws FileNotFoundException {
         deleteYes.setVisible(false);
         deleteNo.setVisible(false);
@@ -123,6 +142,7 @@ public class openController {
                 }
             }
             name = b.getText();
+            this.b = b;
             e.consume();
         });
     }
@@ -196,7 +216,6 @@ public class openController {
     }
 
     public void delete(ActionEvent Event){
-        buttonScroll.setVvalue(.5);
         if(name == null){
             deleteLabel.setText("Please select an album");
             returnDelete();
@@ -233,6 +252,20 @@ public class openController {
             return s;
         }
     }
+
+    private void returncapAdd(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            addcapLabel.setText("");
+            captionInput.setVisible(true);
+        });
+        message.play();
+    }
+
+    private void returncapdDelete(){
+
+    }
     private void returnAdd(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
@@ -266,6 +299,16 @@ public class openController {
         });
         message.play();
     }
+
+    private void returnError(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            errorLabel.setText("");
+        });
+        message.play();
+    }
+
 
     public void reYes(ActionEvent event) {
         for(Button b : buttons){
@@ -322,13 +365,83 @@ public class openController {
             if(but.getStyle().equals(("-fx-background-color:#dae7f3;"))) {
                 but.setStyle("-fx-background-color:transparent");
                 name = null;
+                b = null;
             }
         }
     }
 
-    public void caption(ActionEvent event) {
+    public void caption(ActionEvent event) throws IOException {
+        if(captionButton.isSelected()){
+            buttonScroll.setContent(anchorcap);
+            for (int i = 0; i < items.size(); i++) {
+                for (Button button : buttons) {
+                    if (items.get(i).getName().equals((button.getText()))) {
+                        if (items.get(i).getCaption() == null) {
+                            button.setText(null);
+                        } else {
+                            button.setText(items.get(i).getCaption());
+                        }
+                    }
+                }
+                if(!labels.contains(items.get(i).getName())){
+                    labels.add(i, items.get(i).getName());
+                }
+            }
+        }
+        else{
+            buttonScroll.setContent(anchorpho);
+            for (Photo item : items) {
+                for (int j = 0; j < buttons.size(); j++) {
+                    if (item.getName().equals(labels.get(j))) {
+                        buttons.get(j).setText(labels.get(j));
+                    }
+                }
+            }
+        }
     }
 
+    public void addCap(ActionEvent event){
+        String caption = captionInput.getText();
+        String n = "Please select a photo";
+        String nn = "Please enter a caption";
+        if(!caption.isEmpty() && b != null){
+            for (Photo item : items) {
+                for (int j = 0; j < buttons.size(); j++) {
+                    if (buttons.get(j) == b) {
+                        if (item.getName().equals(labels.get(j))) {
+                            item.addCaption(caption);
+                            a.addCaption(item.getName(), caption);
+                        }
+                    }
+                }
+
+            }
+            b.setText(caption);
+            captionInput.setVisible(false);
+            addcapLabel.setText("Caption successfully added");
+            returncapAdd();
+            captionInput.setText("");
+        }
+        else if(caption.isEmpty() && b == null){
+            captionInput.setVisible(false);
+            addcapLabel.setText(n +"\n"+nn);
+            returncapAdd();
+        }
+        else if(!caption.isEmpty()){
+            captionInput.setVisible(false);
+            addcapLabel.setText(n);
+            returncapAdd();
+        }
+        else {
+            captionInput.setVisible(false);
+            addcapLabel.setText(nn);
+            returncapAdd();
+        }
+    }
+
+    public void deleteCap(ActionEvent event){
+
+    }
     public void tag(ActionEvent event) {
     }
 
