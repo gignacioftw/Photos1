@@ -4,27 +4,42 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.openController">
+   <ScrollPane layoutY="64.0" prefHeight="296.0" prefWidth="200.0">
+      <content>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="200.0">
+            <children>
+               <Label fx:id="addLabel" alignment="CENTER" layoutX="14.0" layoutY="39.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+               <Label fx:id="renameLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="144.0" prefHeight="66.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+               <Label fx:id="renameTopLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="22.0" layoutY="63.0" prefHeight="48.0" prefWidth="139.0" textAlignment="CENTER" textFill="RED" />
+               <Button fx:id="addPhoto" layoutX="54.0" layoutY="8.0" mnemonicParsing="false" onAction="#add" text="Add Photo" />
+               <Button fx:id="renameYes" layoutX="57.0" layoutY="216.0" mnemonicParsing="false" onAction="#reYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
+               <Button fx:id="renameNo" layoutX="97.0" layoutY="216.0" mnemonicParsing="false" onAction="#reNo" prefHeight="25.0" prefWidth="34.0" text="No" />
+               <Button fx:id="renamePhoto" layoutX="46.0" layoutY="111.0" mnemonicParsing="false" onAction="#rename" text="Rename Photo" />
+               <TextField fx:id="renameInput" layoutX="19.0" layoutY="144.0" promptText="photo name" />
+            </children>
+         </AnchorPane>
+      </content>
+   </ScrollPane>
     <Label fx:id="nameLabel" layoutX="21.0" layoutY="23.0" text="Hello: " />
    <Label fx:id="albumTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="16.0" prefHeight="48.0" prefWidth="194.0" text="Album Name" textAlignment="CENTER">
       <font>
          <Font size="25.0" />
       </font>
    </Label>
-   <ScrollPane layoutX="198.0" layoutY="75.0" prefHeight="296.0" prefWidth="388.0">
+   <ScrollPane layoutX="198.0" layoutY="64.0" prefHeight="296.0" prefWidth="388.0">
       <content>
-         <TilePane fx:id="vbox" prefColumns="10" prefHeight="394.0" prefRows="4" prefWidth="376.0" style="-fx-border-color: blue;">
+         <TilePane fx:id="vbox" prefHeight="394.0" prefWidth="376.0" style="-fx-border-color: blue;">
             <cursor>
                <Cursor fx:constant="DEFAULT" />
             </cursor>
          </TilePane>
       </content>
    </ScrollPane>
-   <Button fx:id="addPhoto" layoutX="38.0" layoutY="93.0" mnemonicParsing="false" onAction="#add" text="Add Photo" />
-   <Label fx:id="addLabel" alignment="CENTER" layoutX="139.0" layoutY="82.0" prefHeight="48.0" prefWidth="228.0" textAlignment="CENTER" textFill="RED" />
 
 </AnchorPane>

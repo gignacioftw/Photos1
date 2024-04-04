@@ -9,21 +9,21 @@
 <?import javafx.scene.layout.TilePane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.userHomeController">
-   <Label fx:id="renameLabel" alignment="CENTER" layoutX="155.0" layoutY="211.0" prefHeight="42.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
+   <Label fx:id="renameLabel" alignment="CENTER" layoutX="155.0" layoutY="179.0" prefHeight="42.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
     <Label fx:id="nameLabel" layoutX="21.0" layoutY="23.0" text="Hello: " />
    <Label fx:id="createLabel" alignment="CENTER" layoutX="139.0" layoutY="31.0" prefHeight="25.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
-   <Label fx:id="deleteLabel" alignment="TOP_LEFT" layoutX="164.0" layoutY="107.0" prefHeight="42.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
-   <Label fx:id="renameConfirmLabel" alignment="BOTTOM_CENTER" layoutX="155.0" layoutY="183.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="93.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
-   <TextField fx:id="renameInput" layoutX="180.0" layoutY="253.0" promptText="album name" />
+   <Label fx:id="deleteLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="190.0" layoutY="87.0" prefHeight="66.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+   <Label fx:id="renameConfirmLabel" alignment="BOTTOM_CENTER" layoutX="183.0" layoutY="179.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="66.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+   <TextField fx:id="renameInput" layoutX="184.0" layoutY="220.0" promptText="album name" />
    <TextField fx:id="createInput" layoutX="164.0" layoutY="56.0" promptText="album name" />
    <Button fx:id="deselect" layoutX="386.0" layoutY="374.0" mnemonicParsing="false" onAction="#deselect" prefHeight="25.0" prefWidth="200.0" text="Deselect" />
    <Button fx:id="createAlbum" layoutX="59.0" layoutY="56.0" mnemonicParsing="false" onAction="#create" text="Create Album" />
    <Button fx:id="deleteAlbum" layoutX="59.0" layoutY="107.0" mnemonicParsing="false" onAction="#delete" text="Delete Album" />
-   <Button fx:id="deleteCancel" layoutX="297.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteCancel" text="Cancel" />
+   <Button fx:id="deleteCancel" layoutX="290.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteCancel" text="Cancel" />
    <Button fx:id="deleteConfirm" layoutX="180.0" layoutY="150.0" mnemonicParsing="false" onAction="#deleteConfirm" text="Confirm" />
-   <Button fx:id="renameAlbum" layoutX="55.0" layoutY="253.0" mnemonicParsing="false" onAction="#rename" text="Rename Album" />
-   <Button fx:id="renameConfirm" layoutX="190.0" layoutY="285.0" mnemonicParsing="false" onAction="#renameConfirm" text="Confirm" />
-   <Button fx:id="renameCancel" layoutX="268.0" layoutY="285.0" mnemonicParsing="false" onAction="#renameCancel" prefHeight="25.0" prefWidth="59.0" text="Cancel" />
+   <Button fx:id="renameAlbum" layoutX="59.0" layoutY="220.0" mnemonicParsing="false" onAction="#rename" text="Rename Album" />
+   <Button fx:id="renameConfirm" layoutX="193.0" layoutY="252.0" mnemonicParsing="false" onAction="#renameConfirm" text="Confirm" />
+   <Button fx:id="renameCancel" layoutX="266.0" layoutY="252.0" mnemonicParsing="false" onAction="#renameCancel" prefHeight="25.0" prefWidth="59.0" text="Cancel" />
    <ScrollPane layoutX="386.0" layoutY="25.0" prefHeight="350.0" prefWidth="200.0">
       <content>
          <TilePane fx:id="vbox" prefHeight="350.0" prefWidth="200.0" style="-fx-border-color: blue;">
@@ -33,7 +33,7 @@
          </TilePane>
       </content>
    </ScrollPane>
-   <Button fx:id="openAlbum" layoutX="62.0" layoutY="327.0" mnemonicParsing="false" onAction="#open" text="Open Album" />
+   <Button fx:id="openAlbum" layoutX="66.0" layoutY="294.0" mnemonicParsing="false" onAction="#open" text="Open Album" />
    <Label fx:id="openLabel" alignment="CENTER" layoutX="155.0" layoutY="313.0" prefHeight="42.0" prefWidth="200.0" textAlignment="CENTER" textFill="RED" />
    <cursor>
       <Cursor fx:constant="DEFAULT" />

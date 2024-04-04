@@ -35,4 +35,15 @@ public class Album implements Serializable {
         return photos.values().toArray(new Photo[0]);
     }
 
+    public void renamePhoto(String originalName, String newName){
+        Photo p = photos.get(originalName);
+        p.changeName(newName);
+        photos.remove(originalName);
+        photos.put(newName, p);
+    }
+
+    public Boolean hasPhoto(String photoName){
+        return photos.containsKey(photoName);
+    }
+
 }

@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
+import static com.example.photos.Controllers.openController.trunc;
 import static com.example.photos.Model.UserSystem.readApp;
 import static com.example.photos.Model.UserSystem.writeApp;
 import static java.awt.Color.blue;
@@ -162,7 +163,7 @@ public class userHomeController {
                 b.setStyle(("-fx-background-color:transparent"));
                 b.setTextAlignment(TextAlignment.CENTER);
                 b.setContentDisplay(ContentDisplay.TOP);
-                b.setText(createInput.getText() + "\n" +a.getNumOfPhotos() + " photos");
+                b.setText(trunc(createInput.getText()) + "\n" +a.getNumOfPhotos() + " photos");
                 vbox.getChildren().add(b);
                 buttons.add(b);
                 mouseClick(b);
@@ -187,7 +188,7 @@ public class userHomeController {
             returnDelete();
         }
         else{
-            deleteLabel.setText("Are you sure you want to delete: " +name + "?");
+            deleteLabel.setText("Are you sure you want to delete: " +trunc(name) + "?");
             deleteCancel.setVisible(true);
             deleteConfirm.setVisible(true);
         }
@@ -245,17 +246,20 @@ public class userHomeController {
                 renameCancel.setVisible(true);
                 renameLabel.setText("");
                 renameConfirmLabel.setWrapText(true);
-                renameConfirmLabel.setText("Are you sure you want to \nrename: " +name +" to: " +album +"?");
+                renameConfirmLabel.setText("Are you sure you want to \nrename: " +trunc(name) +" to: " +trunc(album) +"?");
             }
         }
         else if(album.isEmpty() && name == null){
             renameLabel.setText(n +"\n"+a);
+            returnRename();
         }
         else if(!album.isEmpty()){
             renameLabel.setText(n);
+            returnRename();
         }
         else{
             renameLabel.setText(a);
+            returnRename();
         }
     }
 
@@ -307,7 +311,7 @@ public class userHomeController {
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
         message.setOnFinished(e -> {
-            renameConfirmLabel.setText("");
+            renameLabel.setText("");
         });
         message.play();
     }

@@ -1,5 +1,6 @@
 package com.example.photos.Model;
 
+import java.io.File;
 import java.io.Serializable;
 
 public class Photo implements Serializable {
@@ -42,6 +43,10 @@ public class Photo implements Serializable {
 
     public void removeTag(String tag){
 
+    }
+
+    public void changeName(String newName) {
+        this.name = newName;
     }
     public String getDate(){
         return date;
