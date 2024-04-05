@@ -1,7 +1,6 @@
 # TODO
 ### user system:
 open album (open done)
-- remove caption
 - display photo in a area
 - add a tag
 - delete a tag
