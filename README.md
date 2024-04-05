@@ -1,27 +1,27 @@
 # TODO
 ### user system:
 open album (open done)
-- display photo in a area
-- add a tag
+- display photo in a area (open a new window and enlarge it plus the info. window should also have the slideshow stuff) 
+- add a tag 
 - delete a tag
-- copy photo
+- (all the tag stuff should be with the tag display mode like the caption mode i made)
+- copy photo 
 - move photo
-- slideshow
+- (i already started working on copy and move changes still in progress dont do these)
+- slideshow (should be in the open photo menu)
   
 search engine
 - date range
 - tag based searches
 - create album from search results
 
-the controllers for the user main menu is already created.
-photo class i think is good might need to change the *__path variable__* to a file path?
-album class should be good too.
 
-make sure not to push your user.dat or any of the things in your data folder while testing it out. i will push the stock and admin.
+msg me om groupme if you have any questions its kinda cluttered not the best organized
+
+i didnt do versioning so when you upload changes make sure to upload tje new user.dat
 
 how should we do the tag system? it says some can have multiple and the user can create their own tag type that they can designate whether it can have multiple or just one.
 
-also wanna change the ui of the userhome screen.
 
 
 ## License
