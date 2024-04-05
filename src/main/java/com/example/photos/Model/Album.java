@@ -1,6 +1,10 @@
 package com.example.photos.Model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Album implements Serializable {
@@ -55,6 +59,33 @@ public class Album implements Serializable {
 
     public Boolean hasPhoto(String photoName){
         return photos.containsKey(photoName);
+    }
+
+    public String getDateRange(){
+        Photo[] p = getPhotos();
+        if(p.length == 0){
+            return "";
+        }
+        ArrayList<Calendar> c = new ArrayList<>();
+        for(Photo photo : p){
+            c.add(photo.getDate());
+        }
+        Calendar greatest = c.get(0);
+        Calendar lowest = c.get(0);
+        if(c.size() > 1){
+            for(int i = 1; i < c.size(); i++){
+                if(c.get(i).compareTo(greatest) > 0){
+                    greatest = c.get(i);
+                }
+                else if(c.get(i).compareTo(lowest) < 0){
+                    lowest = c.get(i);
+                }
+            }
+        }
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-mm-dd");
+        String g = d.format(greatest.getTime());
+        String l = d.format(lowest.getTime());
+        return g +" - " +l;
     }
 
 }

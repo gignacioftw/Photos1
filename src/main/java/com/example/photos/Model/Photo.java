@@ -1,7 +1,9 @@
 package com.example.photos.Model;
 
+
 import java.io.File;
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class Photo implements Serializable {
     protected String name;
@@ -9,7 +11,7 @@ public class Photo implements Serializable {
     protected String tag;
     protected String caption;
 
-    protected String date;
+    protected Calendar date;
     public Photo(){
 
     }
@@ -19,7 +21,7 @@ public class Photo implements Serializable {
         this.path = path;
     }
 
-    public Photo(String name, String path, String date){
+    public Photo(String name, String path, Calendar date){
         this.name = name;
         this.path = path;
         this.date = date;
@@ -52,7 +54,7 @@ public class Photo implements Serializable {
     public void changeName(String newName) {
         this.name = newName;
     }
-    public String getDate(){
+    public Calendar getDate(){
         return date;
     }
 }

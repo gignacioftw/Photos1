@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,6 +28,9 @@ import javafx.util.Duration;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import static com.example.photos.Model.UserSystem.writeApp;
 
 public class openController {
     @FXML
@@ -72,7 +76,6 @@ public class openController {
     @FXML
     Label addLabel;
     
-    private Scene preScene;
     private ObservableList<Photo> items = FXCollections.observableArrayList();
     private ObservableList<Button> buttons = FXCollections.observableArrayList();
 
@@ -85,7 +88,7 @@ public class openController {
     User u;
     public Stage stage;
     public Scene scene;
-
+    public Parent root;
 
     public void displayName() throws FileNotFoundException {
         deleteYes.setVisible(false);
@@ -127,10 +130,6 @@ public class openController {
         this.a = u.getAlbum(albumName);
     }
 
-    public void setPreScene(Scene preScene) {
-        this.preScene = preScene;
-    }
-
     private void mouseClick(Button b) {
         b.setOnMouseClicked(e -> {
             for(Button but : buttons){
@@ -160,8 +159,11 @@ public class openController {
         );
         File selected = f.showOpenDialog(stage);
         if(selected != null){
-            a.addPhoto(new Photo(selected.getName().substring(0, selected.getName().indexOf(".")), selected.getPath()));
-            items.add(new Photo(selected.getName().substring(0, selected.getName().indexOf(".")), selected.getPath()));
+            Calendar c = Calendar.getInstance();
+            c.setTimeInMillis(selected.lastModified());
+            c.set(Calendar.MILLISECOND,0);
+            a.addPhoto(new Photo(selected.getName().substring(0, selected.getName().indexOf(".")), selected.getPath(), c));
+            items.add(new Photo(selected.getName().substring(0, selected.getName().indexOf(".")), selected.getPath(), c));
             Button b = getButton(selected);
             vbox.getChildren().add(b);
             buttons.add(b);
@@ -176,9 +178,17 @@ public class openController {
         }
     }
 
-    public void back(ActionEvent event){
+    public void back(ActionEvent event) throws IOException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/userHome.fxml"));
+        root = loader.load();
+
+        userHomeController userHomeController = loader.getController();
+        userHomeController.loadSystem(s);
+        userHomeController.displayName(u.getUsername());
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(preScene);
+        scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
 
@@ -466,6 +476,7 @@ public class openController {
 
     }
     public void tag(ActionEvent event) {
+
     }
 
     public void slideshow(ActionEvent event) {

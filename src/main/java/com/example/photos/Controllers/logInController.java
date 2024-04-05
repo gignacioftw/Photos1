@@ -59,7 +59,6 @@ public class logInController {
                 userHomeController userHomeController = loader.getController();
                 userHomeController.loadSystem(s);
                 userHomeController.displayName(username);
-                userHomeController.setPreScene(loginButton.getScene());
 
                 //root = FXMLLoader.load(getClass().getResource("logIn.xml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

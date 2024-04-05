@@ -76,7 +76,6 @@ public class userHomeController {
     String username;
     String name;
 
-    private Scene preScene;
     public Stage stage;
     public Scene scene;
     public Parent root;
@@ -111,7 +110,7 @@ public class userHomeController {
             b.setTextAlignment(TextAlignment.CENTER);
             b.setContentDisplay(ContentDisplay.TOP);
             vbox.getChildren().add(b);
-            b.setText(albumName + "\n" +a.getNumOfPhotos() + " photos");
+            b.setText(albumName + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
             mouseClick(b);
             this.a = null;
         }
@@ -137,9 +136,6 @@ public class userHomeController {
         });
     }
 
-    public void setPreScene(Scene preScene) {
-        this.preScene = preScene;
-    }
     public void loadSystem(UserSystem s){
         this.s = s;
     }
@@ -167,7 +163,7 @@ public class userHomeController {
                 b.setStyle(("-fx-background-color:transparent"));
                 b.setTextAlignment(TextAlignment.CENTER);
                 b.setContentDisplay(ContentDisplay.TOP);
-                b.setText(trunc(createInput.getText()) + "\n" +a.getNumOfPhotos() + " photos");
+                b.setText(trunc(createInput.getText()) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
                 vbox.getChildren().add(b);
                 buttons.add(b);
                 mouseClick(b);
@@ -214,9 +210,13 @@ public class userHomeController {
         }
     }
 
-    public void logout(ActionEvent event){
+    public void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/logIn.fxml"));
+        root = loader.load();
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(preScene);
+        scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
     }
     public void open(ActionEvent event) throws IOException {
@@ -231,7 +231,6 @@ public class userHomeController {
             openController openController = loader.getController();
             openController.loadSystem(s, username, name);
             openController.displayName();
-            openController.setPreScene(openLabel.getScene());
 
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
