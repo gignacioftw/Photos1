@@ -264,7 +264,12 @@ public class openController {
     }
 
     private void returncapdDelete(){
-
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            deletecapLabel.setText("");
+        });
+        message.play();
     }
     private void returnAdd(){
         PauseTransition message = new PauseTransition();
@@ -308,7 +313,6 @@ public class openController {
         });
         message.play();
     }
-
 
     public void reYes(ActionEvent event) {
         for(Button b : buttons){
@@ -440,6 +444,25 @@ public class openController {
     }
 
     public void deleteCap(ActionEvent event){
+        if(b == null){
+            deletecapLabel.setText("Please select a photo");
+            returncapdDelete();
+        }
+        else{
+            for(Photo p : items){
+                for(int i = 0; i< buttons.size(); i++){
+                    if (buttons.get(i) == b) {
+                        if (p.getName().equals(labels.get(i))) {
+                            p.addCaption(null);
+                            a.addCaption(p.getName(), null);
+                            b.setText("");
+                            deletecapLabel.setText("Caption deleted successfully");
+                            returncapdDelete();
+                        }
+                    }
+                }
+            }
+        }
 
     }
     public void tag(ActionEvent event) {
