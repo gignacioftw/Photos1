@@ -258,6 +258,7 @@ public class openController {
         }
     }
     public void move(ActionEvent event){
+        moveLabel.setWrapText(true);
         if(b == null){
             moveLabel.setText("Please select a photo");
             returnMove();
@@ -283,16 +284,22 @@ public class openController {
         else{
             for(Button b : buttons){
                 if(b.getText().equals(name)){
-                    u.getAlbum(albumChoice.getValue()).addPhoto(a.getPhoto(name));
-                    items.remove(a.getPhoto(name));
-                    a.removePhoto(name);
-                    vbox.getChildren().remove(b);
-                    moveLabel.setWrapText(true);
-                    moveLabel.setText("Photo successfully moved to: " +albumChoice.getValue());
-                    moveConfirm.setVisible(false);
-                    moveHide.setVisible(false);
-                    albumChoice.setVisible(false);
-                    returnMove();
+                    if(u.getAlbum(albumChoice.getValue()).hasPhoto(name)){
+                        moveLabel.setText("Duplicate photo. Please select another");
+                        returnMove();
+                    }
+                    else{
+                        u.getAlbum(albumChoice.getValue()).addPhoto(a.getPhoto(name));
+                        items.remove(a.getPhoto(name));
+                        a.removePhoto(name);
+                        vbox.getChildren().remove(b);
+                        moveLabel.setWrapText(true);
+                        moveLabel.setText("Photo successfully moved to: " +albumChoice.getValue());
+                        moveConfirm.setVisible(false);
+                        moveHide.setVisible(false);
+                        albumChoice.setVisible(false);
+                        returnMove();
+                    }
                 }
             }
         }
@@ -306,6 +313,7 @@ public class openController {
     }
 
     public void copy(ActionEvent event){
+        copyLabel.setWrapText(true);
         if(b == null){
             copyLabel.setText("Please select a photo");
             returnCopy();
@@ -331,14 +339,20 @@ public class openController {
         else{
             for(Button b : buttons){
                 if(b.getText().equals(name)){
-                    u.getAlbum(albumChoice1.getValue()).addPhoto(a.getPhoto(name));
-                    copyLabel.setWrapText(true);
-                    copyLabel.setText("Photo successfully copied to: " +albumChoice1.getValue());
-                    copyConfirm.setVisible(false);
-                    copyHide.setVisible(false);
-                    albumChoice1.setVisible(false);
-                    deselectM();
-                    returnCopy();
+                    if(u.getAlbum(albumChoice1.getValue()).hasPhoto(name)){
+                        copyLabel.setText("Duplicate photo. Please select another");
+                        returnCopy();
+                    }
+                    else{
+                        u.getAlbum(albumChoice1.getValue()).addPhoto(a.getPhoto(name));
+                        copyLabel.setWrapText(true);
+                        copyLabel.setText("Photo successfully copied to: " +albumChoice1.getValue());
+                        copyConfirm.setVisible(false);
+                        copyHide.setVisible(false);
+                        albumChoice1.setVisible(false);
+                        deselectM();
+                        returnCopy();
+                    }
                 }
             }
         }

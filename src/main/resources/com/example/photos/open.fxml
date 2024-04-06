@@ -38,12 +38,12 @@
                <Button fx:id="deleteYes" layoutX="58.0" layoutY="309.0" mnemonicParsing="false" onAction="#deYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
                <Button fx:id="deleteNo" layoutX="103.0" layoutY="309.0" mnemonicParsing="false" onAction="#deNo" prefHeight="25.0" prefWidth="34.0" text="No" />
                <Button fx:id="movePhoto" layoutX="48.0" layoutY="372.0" mnemonicParsing="false" onAction="#move" prefWidth="100.0" text="Move Photo" />
-               <Label fx:id="moveLabel" alignment="CENTER" layoutX="22.0" layoutY="397.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+               <Label fx:id="moveLabel" alignment="CENTER" layoutX="22.0" layoutY="394.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
                <ChoiceBox fx:id="albumChoice" layoutX="23.0" layoutY="433.0" prefWidth="150.0" visible="false" />
                <Button fx:id="moveConfirm" layoutX="42.0" layoutY="465.0" mnemonicParsing="false" onAction="#moveConfirm" prefWidth="50.0" text="Move" visible="false" />
                <Button fx:id="moveHide" layoutX="103.0" layoutY="465.0" mnemonicParsing="false" onAction="#hide" prefWidth="50.0" text="Hide" visible="false" />
                <Button fx:id="copyPhoto" layoutX="58.0" layoutY="519.0" mnemonicParsing="false" onAction="#copy" text="Copy Photo" />
-               <Label fx:id="copyLabel" alignment="CENTER" layoutX="22.0" layoutY="544.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+               <Label fx:id="copyLabel" alignment="CENTER" layoutX="22.0" layoutY="541.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
                <ChoiceBox fx:id="albumChoice1" layoutX="23.0" layoutY="580.0" prefWidth="150.0" visible="false" />
                <Button fx:id="copyConfirm" layoutX="42.0" layoutY="612.0" mnemonicParsing="false" onAction="#copyConfirm" prefWidth="50.0" text="Copy" visible="false" />
                <Button fx:id="copyHide" layoutX="103.0" layoutY="612.0" mnemonicParsing="false" onAction="#chide" prefWidth="50.0" text="Hide" visible="false" />
