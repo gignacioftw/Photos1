@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -36,6 +37,11 @@
                <Label fx:id="deleteLabel" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="21.0" layoutY="268.0" prefHeight="66.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
                <Button fx:id="deleteYes" layoutX="58.0" layoutY="309.0" mnemonicParsing="false" onAction="#deYes" prefHeight="25.0" prefWidth="34.0" text="Yes" />
                <Button fx:id="deleteNo" layoutX="103.0" layoutY="309.0" mnemonicParsing="false" onAction="#deNo" prefHeight="25.0" prefWidth="34.0" text="No" />
+               <Button fx:id="movePhoto" layoutX="48.0" layoutY="372.0" mnemonicParsing="false" onAction="#move" prefWidth="100.0" text="Move Photo" />
+               <Label fx:id="moveLabel" alignment="CENTER" layoutX="22.0" layoutY="397.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
+               <ChoiceBox fx:id="albumChoice" layoutX="23.0" layoutY="433.0" prefWidth="150.0" visible="false" />
+               <Button fx:id="moveConfirm" layoutX="42.0" layoutY="465.0" mnemonicParsing="false" onAction="#moveConfirm" prefWidth="50.0" text="Move" visible="false" />
+               <Button fx:id="moveHide" layoutX="103.0" layoutY="465.0" mnemonicParsing="false" onAction="#hide" prefWidth="50.0" text="Hide" visible="false" />
             </children>
          </AnchorPane>
       </content>
@@ -62,7 +68,7 @@
    </ScrollPane>
    <Button fx:id="deselectButton" layoutX="199.0" layoutY="373.0" mnemonicParsing="false" onAction="#deselect" prefHeight="27.0" prefWidth="101.0" text="Deselect" textAlignment="CENTER" />
    <Button fx:id="tagMenu" layoutX="398.0" layoutY="373.0" mnemonicParsing="false" onAction="#tag" prefHeight="27.0" prefWidth="100.5" text="Tag" textAlignment="CENTER" />
-   <Button fx:id="slideshow" layoutX="499.0" layoutY="373.0" mnemonicParsing="false" onAction="#slideshow" prefHeight="27.0" prefWidth="100.5" text="Open Picture" textAlignment="CENTER" />
+   <Button fx:id="openPicture" layoutX="499.0" layoutY="373.0" mnemonicParsing="false" onAction="#enlarge" prefHeight="27.0" prefWidth="100.5" text="Open Picture" textAlignment="CENTER" />
    <ToggleButton fx:id="captionButton" layoutX="297.0" layoutY="373.0" mnemonicParsing="false" onAction="#caption" prefHeight="27.0" prefWidth="100.5" text="Display Captions">
       <font>
          <Font size="11.0" />

@@ -110,7 +110,7 @@ public class userHomeController {
             b.setTextAlignment(TextAlignment.CENTER);
             b.setContentDisplay(ContentDisplay.TOP);
             vbox.getChildren().add(b);
-            b.setText(albumName + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
+            b.setText(trunc(albumName) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
             mouseClick(b);
             this.a = null;
         }
@@ -123,8 +123,15 @@ public class userHomeController {
                 if(but == b){
                     b.setStyle(("-fx-background-color:#dae7f3;"));
                     for(String s : items){
-                        if(b.getText().contains(s)){
-                            albumName = s;
+                        if(b.getText().contains("...")){
+                            if(s.contains(b.getText().substring(0, b.getText().indexOf(".")))){
+                                albumName = s;
+                            }
+                        }
+                        else if(!b.getText().contains("...")){
+                            if(s.contains(b.getText().substring(0, b.getText().indexOf(String.valueOf("\n"))))){
+                                albumName = s;
+                            }
                         }
                     }
                 }
@@ -163,7 +170,7 @@ public class userHomeController {
                 b.setStyle(("-fx-background-color:transparent"));
                 b.setTextAlignment(TextAlignment.CENTER);
                 b.setContentDisplay(ContentDisplay.TOP);
-                b.setText(trunc(createInput.getText()) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
+                b.setText(trunc(album) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
                 vbox.getChildren().add(b);
                 buttons.add(b);
                 mouseClick(b);

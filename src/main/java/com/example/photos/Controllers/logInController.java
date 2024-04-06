@@ -60,7 +60,6 @@ public class logInController {
                 userHomeController.loadSystem(s);
                 userHomeController.displayName(username);
 
-                //root = FXMLLoader.load(getClass().getResource("logIn.xml"));
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);

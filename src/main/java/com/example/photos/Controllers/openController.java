@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,9 +29,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.example.photos.Model.UserSystem.writeApp;
-
 public class openController {
+    @FXML
+    Button moveHide;
+    @FXML
+    Button moveConfirm;
+    @FXML
+    ChoiceBox<String> albumChoice;
+    @FXML
+    Label moveLabel;
     @FXML
     TextField captionInput;
     @FXML
@@ -91,6 +96,9 @@ public class openController {
     public Parent root;
 
     public void displayName() throws FileNotFoundException {
+        String[] s = u.getAlbumNames();
+        albumChoice.getItems().addAll(u.getAlbumNames());
+        albumChoice.getItems().remove(a.getAlbumName());
         deleteYes.setVisible(false);
         deleteNo.setVisible(false);
         renameNo.setVisible(false);
@@ -135,13 +143,13 @@ public class openController {
             for(Button but : buttons){
                 if(but == b){
                     b.setStyle(("-fx-background-color:#dae7f3;"));
+                    this.b = b;
                 }
                 else{
                     but.setStyle(("-fx-background-color:transparent"));
                 }
             }
             name = b.getText();
-            this.b = b;
             e.consume();
         });
     }
@@ -228,15 +236,65 @@ public class openController {
     public void delete(ActionEvent Event){
         if(name == null){
             deleteLabel.setText("Please select an album");
+            buttonScroll.setVvalue(.3);
             returnDelete();
         }
         else{
+            buttonScroll.setVvalue(.3);
             deleteLabel.setWrapText(true);
             deleteLabel.setText("Are you sure you want to delete: " +trunc(name) + "?");
             deleteYes.setVisible(true);
             deleteNo.setVisible(true);
         }
     }
+    public void move(ActionEvent event){
+        if(b == null){
+            moveLabel.setText("Please select a photo");
+            returnMove();
+        }
+        else{
+            String[] s = u.getAlbumNames();
+            if(s.length <= 1){
+                moveLabel.setText("No other albums available");
+                returnMove();
+            }
+            else{
+                moveHide.setVisible(true);
+                moveConfirm.setVisible(true);
+                albumChoice.setVisible(true);
+            }
+        }
+    }
+
+    public void moveConfirm(ActionEvent event){
+        if(albumChoice.getValue() == null){
+            moveLabel.setText("Please select an album");
+        }
+        else{
+            for(Button b : buttons){
+                if(b.getText().equals(name)){
+                    u.getAlbum(albumChoice.getValue()).addPhoto(a.getPhoto(name));
+                    items.remove(a.getPhoto(name));
+                    a.removePhoto(name);
+                    vbox.getChildren().remove(b);
+                    moveLabel.setWrapText(true);
+                    moveLabel.setText("Photo successfully moved to: " +albumChoice.getValue());
+                    moveConfirm.setVisible(false);
+                    moveHide.setVisible(false);
+                    albumChoice.setVisible(false);
+                    returnMove();
+                }
+            }
+        }
+    }
+
+    public void hide(ActionEvent event) {
+        albumChoice.setVisible(false);
+        moveConfirm.setVisible(false);
+        moveHide.setVisible(false);
+        deselectM();
+    }
+
     private static Button getButton(File selected) throws FileNotFoundException {
         InputStream stream = new FileInputStream(selected.getPath());
         Image image = new Image(stream);
@@ -324,6 +382,12 @@ public class openController {
         message.play();
     }
 
+    private void returnMove(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> moveLabel.setText(""));
+        message.play();
+    }
     public void reYes(ActionEvent event) {
         for(Button b : buttons){
             if(b.getText().equals(name)){
@@ -334,7 +398,10 @@ public class openController {
                 renameYes.setVisible(false);
                 renameNo.setVisible(false);
                 renameLabel.setText("Photo renamed successfully");
+                items.remove(a.getPhoto(name));
                 a.renamePhoto(name, renameInput.getText());
+                items.add(a.getPhoto(renameInput.getText()));
+                deselectM();
                 returnYes();
             }
         }
@@ -358,6 +425,7 @@ public class openController {
                 vbox.getChildren().remove(b);
             }
         }
+        items.remove(a.getPhoto(name));
         a.removePhoto(name);
         returnDelete();
         deselectM();
@@ -479,6 +547,13 @@ public class openController {
 
     }
 
-    public void slideshow(ActionEvent event) {
+    public void enlarge(ActionEvent event) {
+        if(b == null){
+            errorLabel.setText("Please select a photo");
+            returnError();
+        }
+        else{
+            errorLabel.setText("Opening photo");
+        }
     }
 }
