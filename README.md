@@ -5,9 +5,6 @@ open album (open done)
 - add a tag 
 - delete a tag
 - (all the tag stuff should be with the tag display mode like the caption mode i made)
-- copy photo 
-- move photo
-- (i already started working on copy and move changes still in progress dont do these)
 - slideshow (should be in the open photo menu)
   
 search engine
