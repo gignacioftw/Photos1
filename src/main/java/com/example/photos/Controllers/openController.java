@@ -31,6 +31,14 @@ import java.util.Calendar;
 
 public class openController {
     @FXML
+    Button copyConfirm;
+    @FXML
+    Button copyHide;
+    @FXML
+    Label copyLabel;
+    @FXML
+    ChoiceBox<String> albumChoice1;
+    @FXML
     Button moveHide;
     @FXML
     Button moveConfirm;
@@ -97,8 +105,10 @@ public class openController {
 
     public void displayName() throws FileNotFoundException {
         String[] s = u.getAlbumNames();
-        albumChoice.getItems().addAll(u.getAlbumNames());
+        albumChoice.getItems().addAll(s);
         albumChoice.getItems().remove(a.getAlbumName());
+        albumChoice1.getItems().addAll(s);
+        albumChoice1.getItems().remove(a.getAlbumName());
         deleteYes.setVisible(false);
         deleteNo.setVisible(false);
         renameNo.setVisible(false);
@@ -295,6 +305,52 @@ public class openController {
         deselectM();
     }
 
+    public void copy(ActionEvent event){
+        if(b == null){
+            copyLabel.setText("Please select a photo");
+            returnCopy();
+        }
+        else{
+            String[] s = u.getAlbumNames();
+            if(s.length <= 1){
+                copyLabel.setText("No other albums available");
+                returnCopy();
+            }
+            else{
+                copyHide.setVisible(true);
+                copyConfirm.setVisible(true);
+                albumChoice1.setVisible(true);
+            }
+        }
+    }
+
+    public void copyConfirm(ActionEvent event){
+        if(albumChoice1.getValue() == null){
+            copyLabel.setText("Please select an album");
+        }
+        else{
+            for(Button b : buttons){
+                if(b.getText().equals(name)){
+                    u.getAlbum(albumChoice1.getValue()).addPhoto(a.getPhoto(name));
+                    copyLabel.setWrapText(true);
+                    copyLabel.setText("Photo successfully copied to: " +albumChoice1.getValue());
+                    copyConfirm.setVisible(false);
+                    copyHide.setVisible(false);
+                    albumChoice1.setVisible(false);
+                    deselectM();
+                    returnCopy();
+                }
+            }
+        }
+    }
+
+    public void chide(ActionEvent event){
+        albumChoice1.setVisible(false);
+        copyConfirm.setVisible(false);
+        copyHide.setVisible(false);
+        deselectM();
+    }
+
     private static Button getButton(File selected) throws FileNotFoundException {
         InputStream stream = new FileInputStream(selected.getPath());
         Image image = new Image(stream);
@@ -388,6 +444,16 @@ public class openController {
         message.setOnFinished(e -> moveLabel.setText(""));
         message.play();
     }
+
+    private void returnCopy(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            copyLabel.setText("");
+        });
+        message.play();
+    }
+
     public void reYes(ActionEvent event) {
         for(Button b : buttons){
             if(b.getText().equals(name)){
