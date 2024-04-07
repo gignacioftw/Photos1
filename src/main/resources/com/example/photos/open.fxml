@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -12,6 +13,21 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.openController">
+   <AnchorPane fx:id="anchortag" layoutY="33.0" minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="200.0">
+      <children>
+         <Label fx:id="addTagLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="46.0" prefHeight="57.0" prefWidth="185.0" textAlignment="CENTER" textFill="RED" />
+         <Label fx:id="deleteTagLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="182.0" prefHeight="48.0" prefWidth="174.0" textAlignment="CENTER" textFill="RED" />
+         <Label fx:id="createTagLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="293.0" prefHeight="48.0" prefWidth="174.0" textAlignment="CENTER" textFill="RED" />
+         <Button fx:id="addTag" layoutX="51.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTag" prefWidth="100.0" text="Add Tag" />
+         <Button fx:id="deleteTag" layoutX="50.0" layoutY="159.0" maxWidth="100.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="0.0" prefWidth="100.0" text="Delete Tag" />
+         <TextField fx:id="tagInput" layoutX="29.0" layoutY="93.0" promptText="tag" />
+         <ChoiceBox fx:id="tagType" layoutX="28.0" layoutY="57.0" prefWidth="150.0" />
+         <Button fx:id="createTag" layoutX="41.0" layoutY="255.0" maxWidth="126.0" mnemonicParsing="false" onAction="#createTag" prefHeight="25.0" prefWidth="126.0" text="Create Tag Type" />
+         <TextField fx:id="tagTypeInput" layoutX="29.0" layoutY="292.0" promptText="tag type" />
+         <CheckBox fx:id="multipleCheck" layoutX="53.0" layoutY="324.0" mnemonicParsing="false" text="Allow Multiple?" />
+         <ChoiceBox fx:id="tagChoice" layoutX="23.0" layoutY="194.0" prefWidth="150.0" />
+      </children>
+   </AnchorPane>
    <AnchorPane fx:id="anchorcap" layoutY="33.0" minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="200.0">
       <children>
          <Label fx:id="addcapLabel" alignment="CENTER" layoutX="26.0" layoutY="40.0" prefHeight="48.0" prefWidth="152.0" textAlignment="CENTER" textFill="RED" />
@@ -58,7 +74,7 @@
                <Font size="25.0" />
             </font>
          </Label>
-         <Label fx:id="nameLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="392.0" layoutY="5.0" prefHeight="27.0" prefWidth="194.0" text="Album Name" textAlignment="RIGHT" textFill="#0a5a83" />
+         <Label fx:id="nameLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="392.0" layoutY="5.0" prefHeight="27.0" prefWidth="194.0" text="Username" textAlignment="RIGHT" textFill="#0a5a83" />
          <Button fx:id="backButton" layoutX="1.0" layoutY="6.0" mnemonicParsing="false" onAction="#back" text="Back" />
       </children>
    </AnchorPane>

@@ -8,7 +8,6 @@ import java.util.Arrays;
 public class Tag implements Serializable {
     protected String name;
     protected String value;
-    protected ArrayList<String> tagTypes = new ArrayList<>(Arrays.asList("location", "person", "pet", ""));
 
     public Tag(){
 
@@ -19,19 +18,6 @@ public class Tag implements Serializable {
         this.value = value;
     }
 
-    public void changeTagName(String name){
-        this.name = name;
-    }
-
-    public void changeTagValue(String value){
-        this.value = value;
-    }
-
-    public void changeBoth(String name, String value){
-        changeTagName(name);
-        changeTagValue(value);
-    }
-
     public String getName(){
         return name;
     }
@@ -39,5 +25,6 @@ public class Tag implements Serializable {
     public String getValue(){
         return value;
     }
+
 
 }

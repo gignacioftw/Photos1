@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 
 public class picController {
     @FXML
+    Label tags;
+    @FXML
     Label caption;
     @FXML
     Label date;
@@ -27,7 +29,6 @@ public class picController {
     Album a;
     Stage stage;
     Parent root;
-    Scene scene;
     public void display() throws FileNotFoundException {
         InputStream stream = new FileInputStream(p.getPath());
         Image i = new Image(stream);
@@ -35,6 +36,12 @@ public class picController {
         photoView.setPreserveRatio(true);
         caption.setWrapText(true);
         caption.setText(p.getCaption());
+        StringBuilder tags = new StringBuilder();
+        for(int j = 0; j < p.returnTags().length; j++){
+            tags.append(p.returnTags()[j]).append("\n");
+        }
+        this.tags.setWrapText(true);
+        this.tags.setText(tags.toString());
         SimpleDateFormat d = new SimpleDateFormat("yyyy-mm-dd");
         date.setText(d.format(p.getDate().getTime()));
     }

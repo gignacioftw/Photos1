@@ -5,17 +5,22 @@ import java.util.*;
 import java.util.HashSet;
 
 public class UserSystem implements Serializable {
-    private HashMap<String,User> users;
+    private final HashMap<String,User> users;
+
+    private final HashMap<String, Integer> tagTypes;
 
     public static final String storeDir = "data";
     public static final String storeFile = "users.dat";
 
     public UserSystem(){
+        tagTypes = new HashMap<>();
         users = new HashMap<>();
         Admin a = new Admin();
         User stock = new User("stock");
         users.put(a.getUsername(), a);
         users.put(stock.getUsername(), stock);
+        tagTypes.put("location", 0);
+        tagTypes.put("person", 1);
     }
 
     public void addUser(User u){
@@ -56,6 +61,19 @@ public class UserSystem implements Serializable {
         return new File(storeDir, storeFile).exists();
     }
 
+    public void addtagType(String type, int i){
+        if(!tagTypes.containsKey(type)){
+            tagTypes.put(type, i);
+        }
+    }
+
+    public Boolean canAdd(String type, Photo t){
+        return tagTypes.get(type) != 0 || !t.hasType(type);
+    }
+
+    public String[] returnTagTypes(){
+        return tagTypes.keySet().toArray(new String[0]);
+    }
     public static void main(String[]args) throws IOException, ClassNotFoundException {
         UserSystem s = readApp();
         User u = (User) s.getUser("stock");

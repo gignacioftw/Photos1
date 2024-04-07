@@ -5,18 +5,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.photos.Controllers.logInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.logInController">
    <cursor>
-      <Cursor fx:constant="DEFAULT"/>
+      <Cursor fx:constant="DEFAULT" />
    </cursor>
-   <TextField fx:id="nameTextField" layoutX="226.0" layoutY="200.0" promptText="username"/>
-   <Button fx:id="loginButton" layoutX="275.0" layoutY="246.0" mnemonicParsing="false" onAction="#login" text="Log In"/>
-   <Label layoutX="227.0" layoutY="172.0" text="Please enter your username"/>
-   <Label fx:id="errorMessage" alignment="CENTER" layoutX="183.0" layoutY="225.0" prefHeight="17.0" prefWidth="234.0"
-          textAlignment="CENTER" textFill="RED" textOverrun="CLIP"/>
-   <Button fx:id="helpButton" layoutX="543.0" layoutY="14.0" mnemonicParsing="false" onAction="#help"
-           style="-fx-background-color: lightblue; -fx-border-color: grey;" text="Help"/>
+   <TextField fx:id="nameTextField" layoutX="226.0" layoutY="200.0" promptText="username" />
+   <Button fx:id="loginButton" layoutX="275.0" layoutY="246.0" mnemonicParsing="false" onAction="#login" text="Log In" />
+   <Label layoutX="227.0" layoutY="172.0" text="Please enter your username" />
+   <Label fx:id="errorMessage" alignment="CENTER" layoutX="183.0" layoutY="225.0" prefHeight="17.0" prefWidth="234.0" textAlignment="CENTER" textFill="RED" textOverrun="CLIP" />
+   <Button fx:id="helpButton" layoutX="543.0" layoutY="14.0" mnemonicParsing="false" onAction="#help" style="-fx-background-color: lightblue; -fx-border-color: grey;" text="Help" />
+   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="177.0" layoutY="114.0" text="PhotoMonkey" textAlignment="CENTER">
+      <font>
+         <Font size="40.0" />
+      </font>
+   </Label>
 </AnchorPane>

@@ -1,9 +1,6 @@
 package com.example.photos.Controllers;
 
-import com.example.photos.Model.Album;
-import com.example.photos.Model.Photo;
-import com.example.photos.Model.User;
-import com.example.photos.Model.UserSystem;
+import com.example.photos.Model.*;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +27,22 @@ import java.util.Calendar;
 
 public class openController {
     @FXML
+    ChoiceBox<String> tagChoice;
+    @FXML
+    Label deleteTagLabel;
+    @FXML
+    Label createTagLabel;
+    @FXML
+    CheckBox multipleCheck;
+    @FXML
+    TextField tagTypeInput;
+    @FXML
+    Label addTagLabel;
+    @FXML
+    TextField tagInput;
+    @FXML
+    ChoiceBox<String> tagType;
+    @FXML
     Button copyConfirm;
     @FXML
     Button copyHide;
@@ -52,9 +65,13 @@ public class openController {
     @FXML
     Label deletecapLabel;
     @FXML
+    AnchorPane anchortag;
+    @FXML
     AnchorPane anchorcap;
     @FXML
     AnchorPane anchorpho;
+    @FXML
+    ToggleButton tagButton;
     @FXML
     ToggleButton captionButton;
     @FXML
@@ -151,14 +168,31 @@ public class openController {
             for(Button but : buttons){
                 if(but == b){
                     b.setStyle(("-fx-background-color:#dae7f3;"));
+                    tagChoice.getItems().clear();
+                    tagType.getItems().clear();
                     this.b = b;
                 }
                 else{
                     but.setStyle(("-fx-background-color:transparent"));
+                    tagChoice.getItems().clear();
+                    tagType.getItems().clear();
                 }
             }
             name = b.getText();
             e.consume();
+            int x = buttons.indexOf(b);
+            if(buttonScroll.getContent().equals(anchortag)){
+                for(int l = 0; l < a.getPhoto(labels.get(x)).returnTags().length; l++) {
+                    if (!tagChoice.getItems().contains(a.getPhoto(labels.get(x)).returnTags()[l])) {
+                        tagChoice.getItems().add(a.getPhoto(labels.get(x)).returnTags()[l]);
+                    }
+                }
+                for(int k = 0; k < s.returnTagTypes().length; k++){
+                    if(s.canAdd(s.returnTagTypes()[k], a.getPhoto(labels.get(x)))) {
+                        tagType.getItems().add(s.returnTagTypes()[k]);
+                    }
+                }
+            }
         });
     }
 
@@ -194,7 +228,7 @@ public class openController {
         }
     }
 
-    public void back(ActionEvent event) throws IOException, ClassNotFoundException {
+    public void back(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/userHome.fxml"));
         root = loader.load();
 
@@ -446,10 +480,43 @@ public class openController {
         message.play();
     }
 
+    private void returnCreate(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            createTagLabel.setText("");
+            tagTypeInput.setVisible(true);
+            multipleCheck.setVisible(true);
+            tagTypeInput.setText("");
+            multipleCheck.setSelected(false);
+        });
+        message.play();
+    }
     private void returnMove(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
         message.setOnFinished(e -> moveLabel.setText(""));
+        message.play();
+    }
+
+    private void returnAddTagLabel(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            addTagLabel.setText("");
+            tagType.setVisible(true);
+            tagInput.setVisible(true);
+        });
+        message.play();
+    }
+
+    private void returnDeleteTagLabel(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> {
+            deleteTagLabel.setText("");
+            tagChoice.setVisible(true);
+        });
         message.play();
     }
 
@@ -514,12 +581,14 @@ public class openController {
         deselectM();
     }
 
-    private void deselectM() {
+    private void deselectM(){
         for(Button but : buttons){
             if(but.getStyle().equals(("-fx-background-color:#dae7f3;"))) {
                 but.setStyle("-fx-background-color:transparent");
                 name = null;
                 b = null;
+                tagChoice.getItems().clear();
+                tagType.getItems().clear();
             }
         }
     }
@@ -543,12 +612,16 @@ public class openController {
             }
         }
         else{
-            buttonScroll.setContent(anchorpho);
-            for (Photo item : items) {
-                for (int j = 0; j < buttons.size(); j++) {
-                    if (item.getName().equals(labels.get(j))) {
-                        buttons.get(j).setText(labels.get(j));
-                    }
+            setContent();
+        }
+    }
+
+    private void setContent() {
+        buttonScroll.setContent(anchorpho);
+        for (Photo item : items) {
+            for (int j = 0; j < buttons.size(); j++) {
+                if (item.getName().equals(labels.get(j))) {
+                    buttons.get(j).setText(labels.get(j));
                 }
             }
         }
@@ -575,6 +648,7 @@ public class openController {
             addcapLabel.setText("Caption successfully added");
             returncapAdd();
             captionInput.setText("");
+            deselectM();
         }
         else if(caption.isEmpty() && b == null){
             captionInput.setVisible(false);
@@ -615,8 +689,169 @@ public class openController {
         }
 
     }
-    public void tag() {
 
+    public void tag() {
+        if(tagButton.isSelected()){
+            buttonScroll.setContent(anchortag);
+            for (int i = 0; i < items.size(); i++) {
+                for (Button button : buttons) {
+                    if (items.get(i).getName().equals((button.getText()))) {
+                        if (items.get(i).returnTags().length == 0) {
+                            button.setText(null);
+                        } else {
+                            StringBuilder tags = new StringBuilder();
+                            for(int j = 0; j < items.get(i).returnTags().length; j++){
+                                tags.append(items.get(i).returnTags()[j]).append("\n");
+                            }
+                            button.setText(tags.toString());
+                        }
+                    }
+                }
+                if(!labels.contains(items.get(i).getName())){
+                    labels.add(i, items.get(i).getName());
+                }
+            }
+        }
+        else{
+            setContent();
+        }
+    }
+
+    public void addTag(){
+        String nn = "Please select a tag type";
+        String nnn = "Please enter tag value";
+        String n = "Please select a photo";
+        if(b == null && tagType.getValue() == null && tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(n +"\n" + nn + "\n" + nnn);
+            returnAddTagLabel();
+        }
+        else if(b != null && tagType.getValue() == null && tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(nn +"\n" + nnn);
+            returnAddTagLabel();
+        }
+        else if(b != null && tagType.getValue() != null && tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(nnn);
+            returnAddTagLabel();
+        }
+        else if(b != null && tagType.getValue() != null && !tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            int x = 0;
+            for(int i = 0; i < buttons.size(); i++){
+                if(buttons.get(i) == b){
+                    x = i;
+                }
+            }
+            if(s.canAdd(tagType.getValue(), a.getPhoto(labels.get(x)))) {
+                a.getPhoto(labels.get(x)).addTag(new Tag(tagType.getValue(), tagInput.getText()));
+                StringBuilder tags = new StringBuilder();
+                for(int i = 0; i < a.getPhoto(labels.get(x)).returnTags().length; i++){
+                    tags.append(a.getPhoto(labels.get(x)).returnTags()[i]).append("\n");
+                }
+                addTagLabel.setText("Tag successfully added");
+                if(!s.canAdd(tagType.getValue(), a.getPhoto(labels.get(x)))){
+                    tagType.getItems().remove(tagType.getValue());
+                }
+                b.setText(tags.toString());
+                tagInput.setText("");
+                tagType.setValue(null);
+                deselectM();
+                returnAddTagLabel();
+            }
+        }
+        else if(b == null && tagType.getValue() != null && tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(n +"\n" +nnn);
+            returnAddTagLabel();
+        }
+        else if(b == null && tagType.getValue()!= null && !tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(n);
+            returnAddTagLabel();
+        }
+        else if(b != null && tagType.getValue() == null && !tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(nn);
+            returnAddTagLabel();
+        }
+        else if(b == null && tagType.getValue() == null && !tagInput.getText().isEmpty()){
+            tagInput.setVisible(false);
+            tagType.setVisible(false);
+            addTagLabel.setText(n + "\n" + nn);
+            returnAddTagLabel();
+        }
+    }
+
+    public void deleteTag(){
+        String n = "Please select a photo";
+        String nn = "Please select a tag";
+        if(b == null && tagChoice.getValue() == null){
+            tagChoice.setVisible(false);
+            deleteTagLabel.setText(n + nn);
+            returnDeleteTagLabel();
+        }
+        else if(b == null && tagChoice.getValue() != null){
+            tagChoice.setVisible(false);
+            deleteTagLabel.setText(n);
+            returnDeleteTagLabel();
+        }
+        else if(b != null && tagChoice.getValue() == null){
+            tagChoice.setVisible(false);
+            deleteTagLabel.setText(nn);
+            returnDeleteTagLabel();
+        }
+        else if(b != null && tagChoice.getValue() != null){
+            tagChoice.setVisible(false);
+            int x = buttons.indexOf(b);
+            a.getPhoto(labels.get(x)).removeTag(tagChoice.getValue());
+            StringBuilder tags = new StringBuilder();
+            for(int i = 0; i < a.getPhoto(labels.get(x)).returnTags().length; i++){
+                tags.append(a.getPhoto(labels.get(x)).returnTags()[i]).append("\n");
+            }
+            b.setText(tags.toString());
+            for (int k = 0; k < s.returnTagTypes().length; k++) {
+                if(s.returnTagTypes()[k].equals(tagChoice.getValue().substring(0, tagChoice.getValue().indexOf(":"))))
+                    if (s.canAdd(s.returnTagTypes()[k], a.getPhoto(labels.get(x)))) {
+                        tagType.getItems().add(this.s.returnTagTypes()[k]);
+                    }
+            }
+            tagChoice.getItems().remove(tagChoice.getValue());
+            deleteTagLabel.setText("Tag successfully deleted");
+            tagChoice.setValue(null);
+            deselectM();
+            returnDeleteTagLabel();
+        }
+    }
+
+    public void createTag(){
+        if(tagTypeInput.getText().isEmpty()){
+            tagTypeInput.setVisible(false);
+            multipleCheck.setVisible(false);
+            createTagLabel.setText("Please enter a tag type");
+            returnCreate();
+        }
+        else{
+            if(multipleCheck.isSelected()){
+                s.addtagType(tagTypeInput.getText(), 1);
+            }
+            else{
+                s.addtagType(tagTypeInput.getText(), 0);
+            }
+            createTagLabel.setText("Tag type successfully added");
+            tagTypeInput.setVisible(false);
+            multipleCheck.setVisible(false);
+            tagType.getItems().add(tagTypeInput.getText());
+            returnCreate();
+        }
     }
 
     public void enlarge() throws IOException {
@@ -631,7 +866,12 @@ public class openController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/pic.fxml"));
             root = loader.load();
             picController picController = loader.getController();
-            picController.loadPhoto(a.getPhoto(name), a);
+            if(buttonScroll.getContent().equals(anchorpho)) {
+                picController.loadPhoto(a.getPhoto(name), a);
+            }
+            else if(buttonScroll.getContent().equals(anchortag) || buttonScroll.getContent().equals(anchorcap)){
+                picController.loadPhoto(a.getPhoto(labels.get(buttons.indexOf(b))), a);
+            }
             picController.display();
             picWindow.setTitle(name);
             picWindow.setScene(new Scene(root));
