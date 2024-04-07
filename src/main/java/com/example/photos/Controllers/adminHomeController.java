@@ -8,23 +8,20 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class adminHomeController {
-    private ObservableList<String> items = FXCollections.observableArrayList();
+    private final ObservableList<String> items = FXCollections.observableArrayList();
 
     @FXML
     Button close;
     @FXML
-    ListView listOfUsers;
+    ListView<String> listOfUsers;
     @FXML
     Button listUser;
     @FXML
@@ -89,7 +86,7 @@ public class adminHomeController {
         items.addAll(Arrays.asList(usernames));
         userList.setItems(items);
     }
-    public void create(ActionEvent event) {
+    public void create() {
         createUser.setVisible(false);
         createUser1.setVisible(true);
         usernameInput.setVisible(true);
@@ -101,7 +98,7 @@ public class adminHomeController {
         stage.setScene(preScene);
         stage.show();
     }
-    public void delete(ActionEvent event) {
+    public void delete() {
         deleteUser.setVisible(false);
         deleteUser1.setVisible(true);
         userList.setVisible(true);
@@ -109,7 +106,7 @@ public class adminHomeController {
 
     }
 
-    public void delete1(ActionEvent event){
+    public void delete1(){
         String username = userList.getValue();
         if(username == null){
             returnError1();
@@ -126,7 +123,7 @@ public class adminHomeController {
         }
     }
 
-    public void deleteYes(ActionEvent event){
+    public void deleteYes(){
         if(userList.getValue().equals("admin")) {
             verifyLabel.setText("Error: you cannot delete admin");
             returnDButton();
@@ -140,20 +137,20 @@ public class adminHomeController {
             returnDelete();
         }
     }
-    public void deleteNo(ActionEvent event){
+    public void deleteNo(){
         deleteNo.setVisible(false);
         deleteYes.setVisible(false);
         verifyLabel.setVisible(false);
         deleteUser1.setVisible(true);
         userList.setVisible(true);
     }
-    public void list(ActionEvent event) {
+    public void list() {
         listOfUsers.setVisible(true);
         close.setVisible(true);
         listOfUsers.setItems(items);
     }
 
-    public void create1(ActionEvent event) {
+    public void create1() {
         createUser1.setVisible(false);
         usernameInput.setVisible(false);
         createdMessage.setVisible(true);
@@ -203,18 +200,14 @@ public class adminHomeController {
         usernameInput.setText(null);
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            errorMessage.setVisible(false);
-        });
+        message.setOnFinished(e -> errorMessage.setVisible(false));
         message.play();
     }
     private void returnError1() {
         errorMessage1.setVisible(true);
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            errorMessage1.setVisible(false);
-        });
+        message.setOnFinished(e -> errorMessage1.setVisible(false));
         message.play();
     }
     private void returnDupe() {
@@ -254,21 +247,21 @@ public class adminHomeController {
         message.play();
     }
 
-    public void createCancel(ActionEvent event) {
+    public void createCancel() {
         createCancel.setVisible(false);
         createUser1.setVisible(false);
         createUser.setVisible(true);
         usernameInput.setVisible(false);
     }
 
-    public void deleteCancel(ActionEvent event) {
+    public void deleteCancel() {
         deleteCancel.setVisible(false);
         deleteUser1.setVisible(false);
         userList.setVisible(false);
         deleteUser.setVisible(true);
     }
 
-    public void closeList(ActionEvent event){
+    public void closeList(){
         listOfUsers.setVisible(false);
         close.setVisible(false);
         listUser.setVisible(true);

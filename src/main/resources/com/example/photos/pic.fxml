@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.picController">
+   <children>
+      <ImageView fx:id="photoView" fitHeight="357.0" fitWidth="405.0" layoutX="29.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="caption" layoutX="448.0" layoutY="39.0" prefHeight="74.0" prefWidth="129.0" />
+      <Label fx:id="date" layoutX="448.0" layoutY="154.0" prefHeight="27.0" prefWidth="129.0" />
+      <Label fx:id="caption1" layoutX="448.0" layoutY="202.0" prefHeight="74.0" prefWidth="129.0" />
+      <Button fx:id="slideshow" layoutX="478.0" layoutY="327.0" mnemonicParsing="false" onAction="#openshow" text="Slideshow" />
+   </children>
+</AnchorPane>

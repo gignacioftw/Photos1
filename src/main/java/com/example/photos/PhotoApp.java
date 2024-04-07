@@ -29,7 +29,7 @@ public class PhotoApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("logIn.fxml"));
         Scene scene = new Scene(root);
         logInstage.setResizable(false);
-        logInstage.setTitle("Photos");
+        logInstage.setTitle("PhotoMonkey");
         logInstage.setScene(scene);
         logInstage.setOnHidden( e -> {
             try {

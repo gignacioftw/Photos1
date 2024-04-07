@@ -24,7 +24,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,10 +88,10 @@ public class openController {
     @FXML
     Label addLabel;
     
-    private ObservableList<Photo> items = FXCollections.observableArrayList();
-    private ObservableList<Button> buttons = FXCollections.observableArrayList();
+    private final ObservableList<Photo> items = FXCollections.observableArrayList();
+    private final ObservableList<Button> buttons = FXCollections.observableArrayList();
 
-    private ArrayList<String> labels = new ArrayList<>();
+    private final ArrayList<String> labels = new ArrayList<>();
     UserSystem s;
     String name;
     Album a;
@@ -122,7 +121,6 @@ public class openController {
         vbox.setHgap(5);
         for (Photo p: items) {
             InputStream stream = new FileInputStream(p.getPath());
-            File file = new File(p.getPath());
             Image image = new Image(stream);
             Button b = new Button();
             buttons.add(b);
@@ -164,7 +162,7 @@ public class openController {
         });
     }
 
-    public void add(ActionEvent event) throws FileNotFoundException {
+    public void add() throws FileNotFoundException {
         FileChooser f = new FileChooser();
         f.setTitle("Open Resource File");
         f.getExtensionFilters().addAll(
@@ -210,7 +208,7 @@ public class openController {
         stage.show();
     }
 
-    public void rename(ActionEvent event){
+    public void rename(){
         String photo = renameInput.getText();
         String n = "Please select a photo";
         String nn = "Please enter new name";
@@ -243,7 +241,7 @@ public class openController {
         }
     }
 
-    public void delete(ActionEvent Event){
+    public void delete(){
         if(name == null){
             deleteLabel.setText("Please select an album");
             buttonScroll.setVvalue(.3);
@@ -257,7 +255,7 @@ public class openController {
             deleteNo.setVisible(true);
         }
     }
-    public void move(ActionEvent event){
+    public void move(){
         moveLabel.setWrapText(true);
         if(b == null){
             moveLabel.setText("Please select a photo");
@@ -277,7 +275,7 @@ public class openController {
         }
     }
 
-    public void moveConfirm(ActionEvent event){
+    public void moveConfirm(){
         if(albumChoice.getValue() == null){
             moveLabel.setText("Please select an album");
         }
@@ -305,14 +303,14 @@ public class openController {
         }
     }
 
-    public void hide(ActionEvent event) {
+    public void hide() {
         albumChoice.setVisible(false);
         moveConfirm.setVisible(false);
         moveHide.setVisible(false);
         deselectM();
     }
 
-    public void copy(ActionEvent event){
+    public void copy(){
         copyLabel.setWrapText(true);
         if(b == null){
             copyLabel.setText("Please select a photo");
@@ -332,7 +330,7 @@ public class openController {
         }
     }
 
-    public void copyConfirm(ActionEvent event){
+    public void copyConfirm(){
         if(albumChoice1.getValue() == null){
             copyLabel.setText("Please select an album");
         }
@@ -358,7 +356,7 @@ public class openController {
         }
     }
 
-    public void chide(ActionEvent event){
+    public void chide(){
         albumChoice1.setVisible(false);
         copyConfirm.setVisible(false);
         copyHide.setVisible(false);
@@ -401,12 +399,10 @@ public class openController {
         message.play();
     }
 
-    private void returncapdDelete(){
+    private void returncapDelete(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            deletecapLabel.setText("");
-        });
+        message.setOnFinished(e -> deletecapLabel.setText(""));
         message.play();
     }
     private void returnAdd(){
@@ -446,9 +442,7 @@ public class openController {
     private void returnError(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            errorLabel.setText("");
-        });
+        message.setOnFinished(e -> errorLabel.setText(""));
         message.play();
     }
 
@@ -462,13 +456,11 @@ public class openController {
     private void returnCopy(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
-        message.setOnFinished(e -> {
-            copyLabel.setText("");
-        });
+        message.setOnFinished(e -> copyLabel.setText(""));
         message.play();
     }
 
-    public void reYes(ActionEvent event) {
+    public void reYes() {
         for(Button b : buttons){
             if(b.getText().equals(name)){
                 int i = vbox.getChildren().indexOf(b);
@@ -487,7 +479,7 @@ public class openController {
         }
     }
 
-    public void reNo(ActionEvent event) {
+    public void reNo() {
         renameLabel.setText("");
         renameInput.setText("");
         renameInput.setVisible(true);
@@ -496,7 +488,7 @@ public class openController {
         deselectM();
     }
 
-    public void deYes(ActionEvent event){
+    public void deYes(){
         deleteLabel.setText("Photo deleted successfully");
         deleteYes.setVisible(false);
         deleteNo.setVisible(false);
@@ -511,14 +503,14 @@ public class openController {
         deselectM();
     }
 
-    public void deNo(ActionEvent event){
+    public void deNo(){
         deleteLabel.setText("");
         deleteYes.setVisible(false);
         deleteNo.setVisible(false);
         deselectM();
     }
 
-    public void deselect(ActionEvent event){
+    public void deselect(){
         deselectM();
     }
 
@@ -532,7 +524,7 @@ public class openController {
         }
     }
 
-    public void caption(ActionEvent event) throws IOException {
+    public void caption()  {
         if(captionButton.isSelected()){
             buttonScroll.setContent(anchorcap);
             for (int i = 0; i < items.size(); i++) {
@@ -562,7 +554,7 @@ public class openController {
         }
     }
 
-    public void addCap(ActionEvent event){
+    public void addCap(){
         String caption = captionInput.getText();
         String n = "Please select a photo";
         String nn = "Please enter a caption";
@@ -601,10 +593,10 @@ public class openController {
         }
     }
 
-    public void deleteCap(ActionEvent event){
+    public void deleteCap(){
         if(b == null){
             deletecapLabel.setText("Please select a photo");
-            returncapdDelete();
+            returncapDelete();
         }
         else{
             for(Photo p : items){
@@ -615,7 +607,7 @@ public class openController {
                             a.addCaption(p.getName(), null);
                             b.setText("");
                             deletecapLabel.setText("Caption deleted successfully");
-                            returncapdDelete();
+                            returncapDelete();
                         }
                     }
                 }
@@ -623,17 +615,28 @@ public class openController {
         }
 
     }
-    public void tag(ActionEvent event) {
+    public void tag() {
 
     }
 
-    public void enlarge(ActionEvent event) {
+    public void enlarge() throws IOException {
         if(b == null){
             errorLabel.setText("Please select a photo");
             returnError();
         }
         else{
+            Parent root;
             errorLabel.setText("Opening photo");
+            Stage picWindow = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/photos/pic.fxml"));
+            root = loader.load();
+            picController picController = loader.getController();
+            picController.loadPhoto(a.getPhoto(name), a);
+            picController.display();
+            picWindow.setTitle(name);
+            picWindow.setScene(new Scene(root));
+            picWindow.show();
+            returnError();
         }
     }
 }

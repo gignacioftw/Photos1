@@ -12,26 +12,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import static com.example.photos.Model.UserSystem.*;
 
 public class logInController {
-    public UserSystem s;
-    public File dir = new File("data");
-    public Button loginButton;
-    public Label errorMessage;
-    public Button helpButton;
+    UserSystem s;
+
+    @FXML
+    Button loginButton;
+    @FXML
+    Label errorMessage;
+    @FXML
+    Button helpButton;
     @FXML
     TextField nameTextField;
     public Stage stage;
     public Scene scene;
     public Parent root;
 
-    public void login(ActionEvent event) throws IOException, ClassNotFoundException, URISyntaxException {
+    public void login(ActionEvent event) throws IOException, ClassNotFoundException {
         s = readApp();
-        String[] users = s.returnUsers();
         String username = nameTextField.getText();
 
         if(s.check(username)) {
