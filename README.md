@@ -1,11 +1,9 @@
 # TODO
 ### user system:
 open album (open done)
-- display photo in a area (open a new window and enlarge it plus the info. window should also have the slideshow stuff) 
 - add a tag 
 - delete a tag
 - (all the tag stuff should be with the tag display mode like the caption mode i made)
-- slideshow (should be in the open photo menu)
   
 search engine
 - date range
@@ -13,7 +11,7 @@ search engine
 - create album from search results
 
 
-msg me om groupme if you have any questions its kinda cluttered not the best organized
+msg me on groupme if you have any questions its kinda cluttered not the best organized
 
 i didnt do versioning so when you upload changes make sure to upload tje new user.dat
 
