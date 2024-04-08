@@ -15,6 +15,10 @@ import javafx.util.Duration;
 
 import java.util.Arrays;
 
+/**
+ * Handles adminHome.fxml
+ * @author Gigna
+ */
 public class adminHomeController {
     private final ObservableList<String> items = FXCollections.observableArrayList();
 

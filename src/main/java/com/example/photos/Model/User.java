@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * User has a name and a HashMap of albums
+ * @author Gigna
+ */
 public class User implements Serializable {
     protected String username;
     protected HashMap<String, Album> albums;

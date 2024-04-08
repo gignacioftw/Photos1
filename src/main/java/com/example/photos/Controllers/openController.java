@@ -28,6 +28,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * Handles open.fxml
+ * @author Gigna
+ */
 public class openController {
     @FXML
     Label createTagAlbumLabel;

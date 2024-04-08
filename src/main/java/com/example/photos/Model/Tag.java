@@ -1,10 +1,11 @@
 package com.example.photos.Model;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Tag has a name and a value
+ * @author Gigna
+ */
 public class Tag implements Serializable {
     protected String name;
     protected String value;

@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * Handles pic.fxml
+ * @author Gigna
+ */
 public class picController {
     @FXML
     Label tags;

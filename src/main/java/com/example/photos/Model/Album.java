@@ -1,12 +1,15 @@
 package com.example.photos.Model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+/**
+ * Album has a name and a HashMap of photo values.
+ * @author Gigna
+ */
 public class Album implements Serializable {
     protected String albumName;
 
@@ -70,8 +73,8 @@ public class Album implements Serializable {
         for(Photo photo : p){
             c.add(photo.getDate());
         }
-        Calendar greatest = c.get(0);
-        Calendar lowest = c.get(0);
+        Calendar greatest = c.getFirst();
+        Calendar lowest = c.getFirst();
         if(c.size() > 1){
             for(int i = 1; i < c.size(); i++){
                 if(c.get(i).compareTo(greatest) > 0){

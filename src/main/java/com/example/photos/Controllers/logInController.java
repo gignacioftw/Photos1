@@ -15,6 +15,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import static com.example.photos.Model.UserSystem.*;
 
+/**
+ * Handles logIn.fxml
+ * @author Gigna
+ */
 public class logInController {
     UserSystem s;
 

@@ -11,6 +11,10 @@ import java.io.IOException;
 
 import static com.example.photos.Model.UserSystem.*;
 
+/**
+ * PhotoApp that loads the user system and displays the first scene (logIn.fxml)
+ * @author Gigna
+ */
 public class PhotoApp extends Application {
 
     UserSystem s;
@@ -38,8 +42,6 @@ public class PhotoApp extends Application {
         logInstage.show();
 
     }
-
-
 
     public static void main(String[] args) {
         launch();

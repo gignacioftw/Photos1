@@ -27,6 +27,10 @@ import java.io.InputStream;
 
 import static com.example.photos.Controllers.openController.trunc;
 
+/**
+ * Handles userHome.fxml
+ * @author Gigna
+ */
 public class userHomeController {
     private final ObservableList<String> items = FXCollections.observableArrayList();
     private final ObservableList<Button> buttons = FXCollections.observableArrayList();

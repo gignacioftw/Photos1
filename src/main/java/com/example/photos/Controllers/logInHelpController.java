@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Handles logInHelp.fxml
+ * @author Gigna
+ */
 public class logInHelpController {
 
     public Stage stage;

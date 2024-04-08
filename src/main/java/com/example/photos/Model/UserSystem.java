@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.*;
 import java.util.HashSet;
 
+/**
+ * UserSystem has a HashMap of Users and a HashMap of Strings+Ints that stores the type of tag names
+ * @author Gigna
+ */
 public class UserSystem implements Serializable {
     private final HashMap<String,User> users;
 
