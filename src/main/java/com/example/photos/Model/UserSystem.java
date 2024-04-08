@@ -78,14 +78,5 @@ public class UserSystem implements Serializable {
     public String[] returnTagTypes(){
         return tagTypes.keySet().toArray(new String[0]);
     }
-    public static void main(String[]args) throws IOException, ClassNotFoundException {
-        UserSystem s = readApp();
-        User u = (User) s.getUser("stock");
-        u.addAlbum(new Album("stock"));
-        Album a = u.getAlbum("stock");
-        File file = new File("data/depositphotos_10880054-stock-photo-monkey-looking-on-a-computer.jpg");
-        a.addPhoto(new Photo(file.getName(), file.getPath()));
-        writeApp(s);
-    }
 }
 
