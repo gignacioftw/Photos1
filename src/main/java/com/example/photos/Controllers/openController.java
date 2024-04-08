@@ -34,6 +34,8 @@ import java.util.function.Predicate;
  */
 public class openController {
     @FXML
+    Button openPicture;
+    @FXML
     Label createTagAlbumLabel;
     @FXML
     Button searchButton;
@@ -717,7 +719,7 @@ public class openController {
             }
             String t = tags.toString();
             for (Button button : buttons) {
-                if (t.equals(button.getText())){
+                if (t.equals(button.getText()) || button.getText() == null && t.isEmpty()){
                     button.setText(labels.get(this.items.indexOf(item)));
                 }
             }
@@ -1012,6 +1014,7 @@ public class openController {
         return result;
     }
     public void search() throws FileNotFoundException, ParseException {
+        openPicture.setDisable(true);
         searchButton.setDisable(true);
         vbox1.setOrientation(Orientation.HORIZONTAL);
         vbox1.setHgap(5);
@@ -1181,6 +1184,7 @@ public class openController {
         setContent(anchorpho, items, buttons);
         searchItems.clear();
         tagButtons.clear();
+        openPicture.setDisable(false);
         searchButton.setDisable(false);
     }
 
