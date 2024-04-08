@@ -13,6 +13,12 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.photos.Controllers.openController">
+   <AnchorPane fx:id="anchortagalbum" layoutX="-1.0" layoutY="34.0" minHeight="0.0" minWidth="0.0" prefHeight="367.0" prefWidth="200.0">
+      <children>
+         <Button fx:id="createTagAlbum" layoutX="50.0" layoutY="76.0" mnemonicParsing="false" onAction="#createta" prefWidth="100.0" text="Create Album" />
+         <Label fx:id="createTagAlbumLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="110.0" prefHeight="48.0" prefWidth="167.0" textAlignment="CENTER" textFill="RED" />
+      </children>
+   </AnchorPane>
    <TilePane fx:id="vbox1" layoutX="199.0" layoutY="10.0" prefHeight="391.0" prefWidth="402.0">
       <cursor>
          <Cursor fx:constant="DEFAULT" />
@@ -101,9 +107,8 @@
       </content>
    </ScrollPane>
    <Button fx:id="deselectButton" layoutX="199.0" layoutY="373.0" mnemonicParsing="false" onAction="#deselect" prefHeight="27.0" prefWidth="101.0" text="Deselect" textAlignment="CENTER" />
-   <Button fx:id="tagMenu" layoutX="398.0" layoutY="373.0" mnemonicParsing="false" onAction="#tag" prefHeight="27.0" prefWidth="100.5" text="Tag" textAlignment="CENTER" />
    <Button fx:id="openPicture" layoutX="499.0" layoutY="373.0" mnemonicParsing="false" onAction="#enlarge" prefHeight="27.0" prefWidth="100.5" text="Open Picture" textAlignment="CENTER" />
-   <ToggleButton fx:id="captionButton" layoutX="297.0" layoutY="373.0" mnemonicParsing="false" onAction="#caption" prefHeight="27.0" prefWidth="100.5" text="Display Captions">
+   <ToggleButton fx:id="captionButton" layoutX="298.0" layoutY="373.0" mnemonicParsing="false" onAction="#caption" prefHeight="27.0" prefWidth="100.5" text="Display Captions">
       <font>
          <Font size="11.0" />
       </font>

@@ -27,7 +27,6 @@ import java.io.InputStream;
 
 import static com.example.photos.Controllers.openController.trunc;
 
-
 public class userHomeController {
     private final ObservableList<String> items = FXCollections.observableArrayList();
     private final ObservableList<Button> buttons = FXCollections.observableArrayList();
@@ -102,12 +101,20 @@ public class userHomeController {
             b.setTextAlignment(TextAlignment.CENTER);
             b.setContentDisplay(ContentDisplay.TOP);
             vbox.getChildren().add(b);
-            b.setText(trunc(albumName) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
+            b.setText(trunc15(albumName) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
             mouseClick(b);
             this.a = null;
         }
     }
 
+    public static String trunc15(String s){
+        if(s.length() > 15){
+            return s.substring(0, 15) + "...";
+        }
+        else{
+            return s;
+        }
+    }
     private void mouseClick(Button b) {
         b.setOnMouseClicked(e -> {
             String albumName = "";
@@ -161,7 +168,7 @@ public class userHomeController {
                 b.setStyle(("-fx-background-color:transparent"));
                 b.setTextAlignment(TextAlignment.CENTER);
                 b.setContentDisplay(ContentDisplay.TOP);
-                b.setText(trunc(album) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
+                b.setText(trunc15(album) + "\n" +a.getNumOfPhotos() + " photos" +"\n" +a.getDateRange());
                 vbox.getChildren().add(b);
                 buttons.add(b);
                 mouseClick(b);

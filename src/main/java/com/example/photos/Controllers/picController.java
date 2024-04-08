@@ -42,7 +42,7 @@ public class picController {
         }
         this.tags.setWrapText(true);
         this.tags.setText(tags.toString());
-        SimpleDateFormat d = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
         date.setText(d.format(p.getDate().getTime()));
     }
 

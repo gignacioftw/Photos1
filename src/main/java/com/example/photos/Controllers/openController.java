@@ -30,6 +30,12 @@ import java.util.function.Predicate;
 
 public class openController {
     @FXML
+    Label createTagAlbumLabel;
+    @FXML
+    Button searchButton;
+    @FXML
+    AnchorPane anchortagalbum;
+    @FXML
     ScrollPane photoScroll;
     @FXML
     TilePane vbox1;
@@ -119,6 +125,9 @@ public class openController {
     private final ObservableList<Photo> items = FXCollections.observableArrayList();
     private final ObservableList<Button> buttons = FXCollections.observableArrayList();
 
+    private final ObservableList<Photo> searchItems =  FXCollections.observableArrayList();
+
+    private final ArrayList<Button> tagButtons =  new ArrayList<>();
     private final ArrayList<String> labels = new ArrayList<>();
     UserSystem s;
     String name;
@@ -163,6 +172,7 @@ public class openController {
             b.setMaxWidth(30);
             b.setStyle(("-fx-background-color:transparent"));
             b.setWrapText(true);
+            labels.add(b.getText());
             vbox.getChildren().add(b);
             mouseClick(b);
         }
@@ -170,7 +180,7 @@ public class openController {
 
     public static String trunc10(String s){
         if(s.length() > 10){
-            return s.substring(0, 10);
+            return s.substring(0, 10) + "...";
         }
         else{
             return s;
@@ -511,6 +521,13 @@ public class openController {
         });
         message.play();
     }
+
+    private void returnCreateTagAlbum(){
+        PauseTransition message = new PauseTransition();
+        message.setDuration(Duration.seconds(2));
+        message.setOnFinished(e -> createTagAlbumLabel.setText(""));
+        message.play();
+    }
     private void returnMove(){
         PauseTransition message = new PauseTransition();
         message.setDuration(Duration.seconds(2));
@@ -612,35 +629,92 @@ public class openController {
         }
     }
 
-    public void caption()  {
+    public void caption(){
         if(captionButton.isSelected()){
-            buttonScroll.setContent(anchorcap);
-            for (int i = 0; i < items.size(); i++) {
-                for (Button button : buttons) {
-                    if (items.get(i).getName().equals((button.getText()))) {
-                        if (items.get(i).getCaption() == null) {
-                            button.setText(null);
-                        } else {
-                            button.setText(items.get(i).getCaption());
-                        }
-                    }
-                }
-                if(!labels.contains(items.get(i).getName())){
-                    labels.add(i, items.get(i).getName());
+            tagButton.setDisable(true);
+            if (tagButton.isSelected()) {
+                errorLabel.setText("Please select one mode at a time");
+                tagButton.setSelected(false);
+                returnError();
+            }
+            else {
+                if (buttonScroll.getContent().equals(anchorpho)) {
+                    setCapLabels(items);
+                } else if (buttonScroll.getContent().equals(anchortag)) {
+                    errorLabel.setText("Please select one mode at a time");
+                    returnError();
+                    captionButton.setSelected(false);
+                } else if (buttonScroll.getContent().equals(anchortagalbum)) {
+                    setCapLabelsTag(searchItems);
                 }
             }
         }
         else{
-            setContent();
+            tagButton.setDisable(false);
+            if (photoScroll.getContent().equals(vbox)){
+                setContent(anchorpho, items, buttons);
+            } else if (photoScroll.getContent().equals(vbox1)) {
+                setContent(anchortagalbum, searchItems, tagButtons);
+            }
         }
     }
 
-    private void setContent() {
+    private void setCapLabels(ObservableList<Photo> searchItems) {
+        buttonScroll.setContent(anchorcap);
+        for (int i = 0; i < searchItems.size(); i++) {
+            for (Button button : buttons) {
+                if (searchItems.get(i).getName().equals((button.getText()))) {
+                    if (searchItems.get(i).getCaption() == null) {
+                        button.setText(null);
+                    } else {
+                        button.setText(searchItems.get(i).getCaption());
+                    }
+                }
+            }
+            if (!labels.contains(searchItems.get(i).getName())) {
+                labels.add(i, searchItems.get(i).getName());
+            }
+        }
+    }
+
+    private void setCapLabelsTag(ObservableList<Photo> searchItems) {
+        for (int i = 0; i < searchItems.size(); i++) {
+            for(Button b : tagButtons){
+                if(searchItems.get(i).getName().equals(b.getText())){
+                    if (searchItems.get(i).getCaption() == null) {
+                        b.setText(null);
+                    } else {
+                        b.setText(searchItems.get(i).getCaption());
+                    }
+                }
+            }
+            if (!labels.contains(searchItems.get(i).getName())) {
+                labels.add(i, searchItems.get(i).getName());
+            }
+        }
+    }
+
+    private void setContent(AnchorPane anchorpho, ObservableList<Photo> items, List<Button> buttons) {
         buttonScroll.setContent(anchorpho);
         for (Photo item : items) {
-            for (int j = 0; j < buttons.size(); j++) {
-                if (item.getName().equals(labels.get(j))) {
-                    buttons.get(j).setText(labels.get(j));
+            if (item.getName().equals(labels.get(this.items.indexOf(item)))){
+                    buttons.get(items.indexOf(item)).setText(labels.get(this.items.indexOf(item)));
+            }
+        }
+    }
+
+    private void setContentTag(AnchorPane anchorpho, ObservableList<Photo> items) {
+        buttonScroll.setContent(anchorpho);
+        for (Photo item : items) {
+            String[] s = item.returnTags();
+            StringBuilder tags = new StringBuilder();
+            for(String string : s){
+                tags.append(string).append("\n");
+            }
+            String t = tags.toString();
+            for (Button button : buttons) {
+                if (t.equals(button.getText())){
+                    button.setText(labels.get(this.items.indexOf(item)));
                 }
             }
         }
@@ -710,29 +784,54 @@ public class openController {
     }
 
     public void tag() {
-        if(tagButton.isSelected()){
-            buttonScroll.setContent(anchortag);
-            for (int i = 0; i < items.size(); i++) {
-                for (Button button : buttons) {
-                    if (items.get(i).getName().equals((button.getText()))) {
-                        if (items.get(i).returnTags().length == 0) {
-                            button.setText(null);
-                        } else {
-                            StringBuilder tags = new StringBuilder();
-                            for(int j = 0; j < items.get(i).returnTags().length; j++){
-                                tags.append(items.get(i).returnTags()[j]).append("\n");
-                            }
-                            button.setText(tags.toString());
-                        }
-                    }
-                }
-                if(!labels.contains(items.get(i).getName())){
-                    labels.add(i, items.get(i).getName());
+        if(tagButton.isSelected()) {
+            captionButton.setDisable(true);
+            if (captionButton.isSelected()) {
+                errorLabel.setText("Please select one mode at a time");
+                captionButton.setSelected(false);
+                returnError();
+            }
+            else {
+                if (buttonScroll.getContent().equals(anchorpho)) {
+                    buttonScroll.setContent(anchortag);
+                    setLabels(items);
+                } else if (buttonScroll.getContent().equals(anchorcap)) {
+                    errorLabel.setText("Please select one mode at a time");
+                    tagButton.setSelected(false);
+                    returnError();
+                } else if (buttonScroll.getContent().equals(anchortagalbum)) {
+                    setLabels(searchItems);
                 }
             }
         }
         else{
-            setContent();
+            captionButton.setDisable(false);
+            if (photoScroll.getContent().equals(vbox)){
+                setContentTag(anchorpho, items);
+            } else if (photoScroll.getContent().equals(vbox1)) {
+                setContentTag(anchortagalbum, searchItems);
+            }
+        }
+    }
+
+    private void setLabels(ObservableList<Photo> searchItems) {
+        for (int i = 0; i < searchItems.size(); i++) {
+            for (Button button : buttons) {
+                if (searchItems.get(i).getName().equals((button.getText()))) {
+                    if (searchItems.get(i).returnTags().length == 0) {
+                        button.setText(null);
+                    } else {
+                        StringBuilder tags = new StringBuilder();
+                        for (int j = 0; j < searchItems.get(i).returnTags().length; j++) {
+                            tags.append(searchItems.get(i).returnTags()[j]).append("\n");
+                        }
+                        button.setText(tags.toString());
+                    }
+                }
+            }
+            if (!labels.contains(searchItems.get(i).getName())) {
+                labels.add(i, searchItems.get(i).getName());
+            }
         }
     }
 
@@ -900,7 +999,7 @@ public class openController {
     }
 
     public static <T> List<T> filter(List<T> list, Predicate<T> p){
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         for(T t : list){
             if(p.test(t)){
                 result.add(t);
@@ -909,11 +1008,15 @@ public class openController {
         return result;
     }
     public void search() throws FileNotFoundException, ParseException {
+        searchButton.setDisable(true);
+        vbox1.setOrientation(Orientation.HORIZONTAL);
+        vbox1.setHgap(5);
+        vbox1.setHgap(5);
+        buttonScroll.setContent(anchortagalbum);
+
         if(!searchInput.getText().isEmpty()){
-            List<Date> dates = new ArrayList<>();
             List<String> tags = new ArrayList<>();
             for(Photo p : items) {
-                dates.add(p.getDate().getTime());
                 tags.addAll(Arrays.asList(p.returnTags()));
             }
             if(searchInput.getText().contains("=")){
@@ -939,12 +1042,7 @@ public class openController {
                             }
                         }
                     }
-                    for(Photo p : photoResult){
-                        Button but = buttons.get(items.indexOf(p));
-                        Button newBut = getNewBut(p, but);
-                        mouseClick(newBut);
-                        vbox1.getChildren().add(newBut);
-                    }
+                    addNewBut(photoResult);
                 }
                 else if(searchInput.getText().contains("or")){
                     String first = searchInput.getText().substring(0, searchInput.getText().indexOf(" or "));
@@ -968,24 +1066,14 @@ public class openController {
                             }
                         }
                     }
-                    for(Photo p : photoResult){
-                        Button but = buttons.get(items.indexOf(p));
-                        Button newBut = getNewBut(p, but);
-                        mouseClick(newBut);
-                        vbox1.getChildren().add(newBut);
-                    }
+                    addNewBut(photoResult);
                 }
                 else{
                     String s = searchInput.getText().replace("=", ": ");
                     List<String> result = filter(tags, n -> n.equals(s));
                     List<Photo> photoResult = new ArrayList<>();
                     getResults(result, photoResult);
-                    for(Photo p : photoResult){
-                        Button but = buttons.get(items.indexOf(p));
-                        Button newBut = getNewBut(p, but);
-                        mouseClick(newBut);
-                        vbox1.getChildren().add(newBut);
-                    }
+                    addNewBut(photoResult);
                 }
             }
             else if(searchInput.getText().contains("-")){
@@ -1006,12 +1094,7 @@ public class openController {
                             photoResult.add(p);
                         }
                     }
-                    for(Photo p : photoResult) {
-                        Button but = buttons.get(items.indexOf(p));
-                        Button newBut = getNewBut(p, but);
-                        mouseClick(newBut);
-                        vbox1.getChildren().add(newBut);
-                    }
+                    addNewBut(photoResult);
                 }
                 else{
                     String input = searchInput.getText();
@@ -1028,15 +1111,24 @@ public class openController {
                             photoResult.add(p);
                         }
                     }
-                    for(Photo p : photoResult) {
-                        Button but = buttons.get(items.indexOf(p));
-                        Button newBut = getNewBut(p, but);
-                        mouseClick(newBut);
-                        vbox1.getChildren().add(newBut);
-                    }
+                    addNewBut(photoResult);
                 }
             }
             photoScroll.setContent(vbox1);
+        }
+    }
+
+    private void addNewBut(List<Photo> photoResult) throws FileNotFoundException {
+        for(Photo p : photoResult){
+            for(String l : labels){
+                if(p.getName().equals(l)) {
+                    Button but = buttons.get(labels.indexOf(l));
+                    Button newBut = getNewBut(p, but);
+                    mouseClick(newBut);
+                    buttons.add(newBut);
+                    vbox1.getChildren().add(newBut);
+                }
+            }
         }
     }
 
@@ -1053,7 +1145,7 @@ public class openController {
         }
     }
 
-    private static Button getNewBut(Photo p, Button but) throws FileNotFoundException {
+    private Button getNewBut(Photo p, Button but) throws FileNotFoundException {
         Button newBut = new Button();
         newBut.setText(but.getText());
         InputStream stream = new FileInputStream(p.getPath());
@@ -1067,12 +1159,45 @@ public class openController {
         newBut.setMaxWidth(but.getMaxWidth());
         newBut.setStyle(but.getStyle());
         newBut.setWrapText(true);
+        tagButtons.add(newBut);
+        searchItems.add(a.getPhoto(labels.get(buttons.indexOf(but))));
         return newBut;
     }
 
-    public void clear() throws FileNotFoundException {
+    public void clear(){
+        for(int i = 0; i < vbox1.getChildren().size(); i++){
+            buttons.remove((Button)vbox1.getChildren().get(i));
+        }
+        tagButton.setSelected(false);
+        captionButton.setSelected(false);
         vbox1.getChildren().clear();
         searchInput.setText("");
         photoScroll.setContent(vbox);
+        buttonScroll.setContent(anchorpho);
+        setContent(anchorpho, items, buttons);
+        searchItems.clear();
+        tagButtons.clear();
+        searchButton.setDisable(false);
+    }
+
+    public void createta(){
+        if(!vbox1.getChildren().isEmpty()){
+            if(!searchInput.getText().isEmpty()) {
+                if(!u.hasAlbum(searchInput.getText())) {
+                    u.addAlbum(new Album(searchInput.getText()));
+                    for (Photo p : searchItems) {
+                        u.getAlbum(searchInput.getText()).addPhoto(p);
+                    }
+                    createTagAlbumLabel.setWrapText(true);
+                    createTagAlbumLabel.setText("Album: " + searchInput.getText() + " successfully created");
+                    returnCreateTagAlbum();
+                }
+                else{
+                    createTagAlbumLabel.setWrapText(true);
+                    createTagAlbumLabel.setText("Duplicate Album");
+                    returnCreateTagAlbum();
+                }
+            }
+        }
     }
 }
