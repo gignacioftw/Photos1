@@ -22,10 +22,21 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class openController {
+    @FXML
+    ScrollPane photoScroll;
+    @FXML
+    TilePane vbox1;
+    @FXML
+    Label searchLabel;
+    @FXML
+    TextField searchInput;
     @FXML
     ChoiceBox<String> tagChoice;
     @FXML
@@ -129,7 +140,7 @@ public class openController {
         deleteNo.setVisible(false);
         renameNo.setVisible(false);
         renameYes.setVisible(false);
-        nameLabel.setText(u.getUsername());
+        nameLabel.setText(trunc10(u.getUsername()));
         albumTitle.setText(a.getAlbumName());
         Photo[] picture = a.getPhotos();
         items.addAll(picture);
@@ -157,6 +168,14 @@ public class openController {
         }
     }
 
+    public static String trunc10(String s){
+        if(s.length() > 10){
+            return s.substring(0, 10);
+        }
+        else{
+            return s;
+        }
+    }
     public void loadSystem(UserSystem system, String username, String albumName){
         this.s = system;
         this.u = (User) s.getUser(username);
@@ -878,5 +897,182 @@ public class openController {
             picWindow.show();
             returnError();
         }
+    }
+
+    public static <T> List<T> filter(List<T> list, Predicate<T> p){
+        List<T> result = new ArrayList<T>();
+        for(T t : list){
+            if(p.test(t)){
+                result.add(t);
+            }
+        }
+        return result;
+    }
+    public void search() throws FileNotFoundException, ParseException {
+        if(!searchInput.getText().isEmpty()){
+            List<Date> dates = new ArrayList<>();
+            List<String> tags = new ArrayList<>();
+            for(Photo p : items) {
+                dates.add(p.getDate().getTime());
+                tags.addAll(Arrays.asList(p.returnTags()));
+            }
+            if(searchInput.getText().contains("=")){
+                if(searchInput.getText().contains("and")){
+                    String first = searchInput.getText().substring(0, searchInput.getText().indexOf(" and "));
+                    String second = searchInput.getText().substring(searchInput.getText().indexOf("d ") + 2);
+                    first = first.replace("=", ": ");
+                    second = second.replace("=", ": ");
+                    String finalFirst = first;
+                    String finalSecond = second;
+                    List<String> result = filter(tags, n -> n.equals(finalFirst));
+                    List<String> sresult = filter(tags, n -> n.equals(finalSecond));
+                    List<Photo> photoResult = new ArrayList<>();
+                    for (String string : sresult) {
+                        for (String s : result){
+                            for (Photo item : items) {
+                                List<String> t = Arrays.asList(item.returnTags());
+                                if (t.contains(string) && t.contains(s)) {
+                                    if (!photoResult.contains(item)) {
+                                        photoResult.add(item);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for(Photo p : photoResult){
+                        Button but = buttons.get(items.indexOf(p));
+                        Button newBut = getNewBut(p, but);
+                        mouseClick(newBut);
+                        vbox1.getChildren().add(newBut);
+                    }
+                }
+                else if(searchInput.getText().contains("or")){
+                    String first = searchInput.getText().substring(0, searchInput.getText().indexOf(" or "));
+                    String second = searchInput.getText().substring(searchInput.getText().indexOf("or ") + 3);
+                    first = first.replace("=", ": ");
+                    second = second.replace("=", ": ");
+                    String finalFirst = first;
+                    String finalSecond = second;
+                    List<String> result = filter(tags, n -> n.equals(finalFirst));
+                    List<String> sresult = filter(tags, n -> n.equals(finalSecond));
+                    List<Photo> photoResult = new ArrayList<>();
+                    for (String string : sresult) {
+                        for (String s : result){
+                            for (Photo item : items) {
+                                List<String> t = Arrays.asList(item.returnTags());
+                                if (t.contains(string) || t.contains(s)) {
+                                    if (!photoResult.contains(item)) {
+                                        photoResult.add(item);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for(Photo p : photoResult){
+                        Button but = buttons.get(items.indexOf(p));
+                        Button newBut = getNewBut(p, but);
+                        mouseClick(newBut);
+                        vbox1.getChildren().add(newBut);
+                    }
+                }
+                else{
+                    String s = searchInput.getText().replace("=", ": ");
+                    List<String> result = filter(tags, n -> n.equals(s));
+                    List<Photo> photoResult = new ArrayList<>();
+                    getResults(result, photoResult);
+                    for(Photo p : photoResult){
+                        Button but = buttons.get(items.indexOf(p));
+                        Button newBut = getNewBut(p, but);
+                        mouseClick(newBut);
+                        vbox1.getChildren().add(newBut);
+                    }
+                }
+            }
+            else if(searchInput.getText().contains("-")){
+                if(searchInput.getText().contains("to")){
+                    String first = searchInput.getText().substring(0, searchInput.getText().indexOf(" to "));
+                    String second = searchInput.getText().substring(searchInput.getText().indexOf("to ") + 3);
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1= df.parse(first);
+                    Date date2= df.parse(second);
+                    List<Photo> photoResult = new ArrayList<>();
+                    for (Photo p : items) {
+                        Calendar c = p.getDate();
+                        c.set(Calendar.HOUR_OF_DAY, 0);
+                        c.set(Calendar.MINUTE, 0);
+                        c.set(Calendar.SECOND, 0);
+                        Date d = c.getTime();
+                        if(d.after(date1) && d.before(date2) || d.equals(date1) || d.equals(date2)){
+                            photoResult.add(p);
+                        }
+                    }
+                    for(Photo p : photoResult) {
+                        Button but = buttons.get(items.indexOf(p));
+                        Button newBut = getNewBut(p, but);
+                        mouseClick(newBut);
+                        vbox1.getChildren().add(newBut);
+                    }
+                }
+                else{
+                    String input = searchInput.getText();
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = df.parse(input);
+                    List<Photo> photoResult = new ArrayList<>();
+                    for (Photo p : items) {
+                        Calendar c = p.getDate();
+                        c.set(Calendar.HOUR_OF_DAY, 0);
+                        c.set(Calendar.MINUTE, 0);
+                        c.set(Calendar.SECOND, 0);
+                        Date d = c.getTime();
+                        if(d.equals(date)){
+                            photoResult.add(p);
+                        }
+                    }
+                    for(Photo p : photoResult) {
+                        Button but = buttons.get(items.indexOf(p));
+                        Button newBut = getNewBut(p, but);
+                        mouseClick(newBut);
+                        vbox1.getChildren().add(newBut);
+                    }
+                }
+            }
+            photoScroll.setContent(vbox1);
+        }
+    }
+
+    private void getResults(List<String> sresult, List<Photo> photoResult) {
+        for (String string : sresult) {
+            for (Photo item : items) {
+                List<String> t = Arrays.asList(item.returnTags());
+                if(t.contains(string)) {
+                    if(!photoResult.contains(item)) {
+                        photoResult.add(item);
+                    }
+                }
+            }
+        }
+    }
+
+    private static Button getNewBut(Photo p, Button but) throws FileNotFoundException {
+        Button newBut = new Button();
+        newBut.setText(but.getText());
+        InputStream stream = new FileInputStream(p.getPath());
+        Image image = new Image(stream);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setPreserveRatio(true);
+        newBut.setGraphic(imageView);
+        newBut.setTextAlignment(but.getTextAlignment());
+        newBut.setContentDisplay(but.getContentDisplay());
+        newBut.setMaxWidth(but.getMaxWidth());
+        newBut.setStyle(but.getStyle());
+        newBut.setWrapText(true);
+        return newBut;
+    }
+
+    public void clear() throws FileNotFoundException {
+        vbox1.getChildren().clear();
+        searchInput.setText("");
+        photoScroll.setContent(vbox);
     }
 }

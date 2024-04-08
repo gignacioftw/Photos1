@@ -82,10 +82,10 @@ public class Album implements Serializable {
                 }
             }
         }
-        SimpleDateFormat d = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat d = new SimpleDateFormat("yyyy-MM-dd");
         String g = d.format(greatest.getTime());
         String l = d.format(lowest.getTime());
-        return g +" - " +l;
+        return l +" - " +g;
     }
 
 }
