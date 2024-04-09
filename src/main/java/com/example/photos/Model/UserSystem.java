@@ -13,7 +13,7 @@ public class UserSystem implements Serializable {
 
     private final HashMap<String, Integer> tagTypes;
 
-    public static final String storeDir = "data";
+    public static final String storeDir = "C:\\Users\\Gigna\\IdeaProjects\\Photos\\data";
     public static final String storeFile = "users.dat";
 
     public UserSystem(){
