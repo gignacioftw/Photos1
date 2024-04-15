@@ -80,7 +80,7 @@ public class userHomeController {
         deleteConfirm.setVisible(false);
         renameConfirm.setVisible(false);
         renameCancel.setVisible(false);
-        InputStream stream = new FileInputStream("C:\\Users\\Gigna\\IdeaProjects\\Photos\\data\\folder.png");
+        InputStream stream = new FileInputStream("data/folder.png");
         Image image = new Image(stream);
         nameLabel.setText("Hello: " +username);
         this.username = username;
